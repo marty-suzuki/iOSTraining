@@ -28,8 +28,8 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 3. ビューコントローラ
 
-    - 課題 [1.3.1 UIViewControllerのカスタマイズ（stroyboard）](./Swift/pages/day1/1-3-1_UIViewController-customization-storyboard.md)  
-    - 補足 [1.3.2 UIViewControllerのカスタマイズ（xib）](./Swift/pages/day1/1-3-2_UIViewController-customization-xib.md)  
+    - 課題 [1.3.1 UIViewControllerのカスタマイズ（xib）](./Swift/pages/day1/1-3-1_UIViewController-customization-xib.md)  
+    - 補足 [1.3.2 UIViewControllerのカスタマイズ（storyboard）](./Swift/pages/day1/1-3-2_UIViewController-customization-storyboard.md)  
     - プロジェクト [day1/1.3](./Swift/before/day1/1.3)
 
 4. モーダル
