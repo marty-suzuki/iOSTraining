@@ -1,4 +1,4 @@
-# iOS Development Training Course in Swift3
+# iOS Development Training Course in Swift4.2
 
 SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付けるトレーニングコース
 
@@ -9,8 +9,8 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 ### 環境
 
-* Xcode8.1以降
-* Swift3
+* Xcode10以降
+* Swift4.2
 
 ## 1日目
 
