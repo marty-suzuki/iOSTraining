@@ -1,11 +1,12 @@
 //: Playground - noun: a place where people can play
 
-enum Gender: Int {
-    case man
-    case female
-}
-
 class User: CustomStringConvertible {
+
+    enum Gender: Int {
+        case man
+        case female
+    }
+
     let name: String
     let gender: Gender
     let era: Int
@@ -18,11 +19,15 @@ class User: CustomStringConvertible {
      * print時に実装したdescriptionが出力されます。
      */
     var description: String {
-        return "\nUser:\n"
-        + "    name   = \(name)\n"
-        + "    era    = \(era)\n"
-        + "    age    = \(age)\n"
-        + "    visits = \(visits)\n"
+        return """
+        User:
+            name   = \(name)
+            gender = \(gender)
+            era    = \(era)
+            age    = \(age)
+            visits = \(visits as [Int]?)
+
+        """
     }
     
     init?(dict: [String : Any?]) {
@@ -47,7 +52,7 @@ let dict: [String : [[String : Any?]]] = [
     "users" : [
         [
             "name" : "Dr. Emmett Brown",
-            "gender" : 1,
+            "gender" : 0,
             "era" : 1985,
             "age" : 65,
             "visits" : [
@@ -56,7 +61,7 @@ let dict: [String : [[String : Any?]]] = [
         ],
         [
             "name" : "Marty McFly",
-            "gender" : 1,
+            "gender" : 0,
             "era" : 1985,
             "age" : 17,
             "visits" : [
@@ -74,5 +79,5 @@ let dict: [String : [[String : Any?]]] = [
 ]
 
 //usersのarrayを取得し、flatMapを使ってUser型に変換
-let users: [User] = (dict["users"] ?? []).flatMap { User(dict: $0) }
+let users: [User] = (dict["users"] ?? []).compactMap { User(dict: $0) }
 print(users)

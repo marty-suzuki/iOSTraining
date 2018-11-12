@@ -14,6 +14,10 @@
 |2016年03月|Swift 2.2|
 |2016年12月|Swiftオープンソース化 [swift.org](https://swift.org/)|
 |2016年09月|Swift 2.3、Swift 3.0|
+|2017年03月|Swift 3.1|
+|2017年09月|Swift 4.0|
+|2018年03月|Swift 4.1|
+|2018年09月|Swift 4.2|
 
 APIの振る舞いに関して疑問を持ったら、[公式API Reference](https://developer.apple.com/reference)を見ましょう。  
 またはXcodeのソースコード上で型にカーソルをあわせて`command`を押しながらクリックすると  
@@ -270,13 +274,13 @@ let newValue = value ?? ""
 print(newValue) //Apple
 ```
 
-上記の例の場合、valueがnilでなかったらvalueをunwrapを代入し、nilだった場合には空文字列を代入するという結果になります。
+上記の例の場合、valueがnilでなかったらunwrapされたvalueを代入し、nilだった場合には空文字列を代入するという結果になります。
 
-## ImplicitlyUnwrappedOptional型
+## ImplicitlyUnwrappedOptional
 
 変数がnilである可能性があったとしても、unwrapせずに使いたい場合があるかと思います。  
-その場合は`ImplicitlyUnwrappedOptional型`を使うことで、アクセスする際に暗黙的にアンラップされます。
-型の後ろに`!`をつけることで、ImplicitlyUnwrappedOptional型を使うことができます。
+その場合は型のsuffixに`!`を使うことで、アクセスする際に暗黙的にアンラップされます。
+（ImplicitlyUnwrappedOptional型というものが以前存在しましたが、現在は利用できません。）
 
 ```swift
 var value: String! = nil
@@ -286,8 +290,13 @@ print(value) //Apple
 
 Optional型をforce unwrapした際と同様に、変数がnilであった場合に実行時エラーになってしまうので注意しましょう。  
 
-ここで注意しなければならないのは、`String!`は`ImplicitlyUnwrappedOptional<String>`なので  
-optionalな値をforce unwrapする際の`value!`とは、同じ記号を使っていても違った意味になります。
+`String!`は`暗黙アンラップ属性付きのOptional<String>`です。
+optionalな値をforce unwrapする際と同じく、記号としては`!`を使いますが
+
+- optinalな値をforce unwrapする`!`
+- 暗黙アンラップ属性をOptional型に付与する`!`
+
+という違いがあるので意味の違いに注意しましょう。
 
 ## メソッド
 
@@ -395,7 +404,7 @@ structのインスタンス化は下記のようになります。
 let person = Person(name: "ドク", age: 65)
 ```
 
-定義したproperty名が自動的にinitializerの引数になります。  
+定義したproperty名が自動的にinitializerの引数になります。  ([Memberwise Initializer](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID214))
 
 ```swift
 let person = Person(name: "ドク", age: 65)
@@ -478,10 +487,12 @@ setterを実装すると、値を保持できるpropertyでなくなります。
 
 ```swift
 struct Stack<T> {
-    fileprivate var items: [T] = []
+    private(set) var items: [T] = []
+
     mutating func push(item: T) {
         items.append(item)
     }
+
     mutating func pop() -> T {
         return items.removeLast()
     }
@@ -694,9 +705,6 @@ if let json = try? JSONSerialization.jsonObject(with: Data(), options: []) {
 
 ## for文
 
-Swift3では、C言語スタイルのfor文と`++`及び`--`が使用できなくなりました。  
-[Remove C-style for-loops with conditions and incrementers](https://github.com/apple/swift-evolution/blob/master/proposals/0007-remove-c-style-for-loops.md)
-
 ```swift
 // C言語スタイルのfor文
 for var i = 0; i < 10 ; i++ {
@@ -779,6 +787,9 @@ for fruit in fruits where fruit == .apple {
     print("りんごです")
 }
 ```
+
+※Swift3以降では、C言語スタイルのfor文と`++`及び`--`が使用できなくなっています。  
+[Remove C-style for-loops with conditions and incrementers](https://github.com/apple/swift-evolution/blob/master/proposals/0007-remove-c-style-for-loops.md)
 
 ## switch-case
 
@@ -942,7 +953,7 @@ let queryParameter = ["name=doc", "gender=0", "age=65"].reduce("", { result, val
 print(queryParameter)
 ```
 
-## flatMap
+## compactMap
 
 配列内の要素に処理を適用し、その処理を施したものがnilでない配列を使いたい場合に使用します。
 
@@ -952,7 +963,7 @@ enum Gender: Int {
     case female = 1
 }
 
-let genderList = [0, 1, 2, 3, 0, 1].flatMap({ value in
+let genderList = [0, 1, 2, 3, 0, 1].compactMap({ value in
     return Gender(rawValue: value)
 })
 print(genderList)
@@ -1004,6 +1015,6 @@ print(genderList)
 
 ## 課題3
 
-課題2で作成したオブジェクトをクラス化してください。
+課題2で作成したオブジェクトをclass化（またはstruct化）してください。
 
 [Users.playground](../../before/day1/1.1/Users.playground)
