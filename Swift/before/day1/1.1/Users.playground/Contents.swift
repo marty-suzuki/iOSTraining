@@ -1,11 +1,12 @@
 //: Playground - noun: a place where people can play
 
-enum Gender: Int {
-    case man
-    case female
-}
-
 class User {
+
+    enum Gender: Int {
+        case man
+        case female
+    }
+
     init?(dict: [String : Any?]) {
         
     }

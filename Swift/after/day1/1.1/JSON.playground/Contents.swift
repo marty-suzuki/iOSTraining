@@ -4,7 +4,7 @@ let dict: [String : [[String : Any?]]] = [
     "users" : [
         [
             "name" : "Dr. Emmett Brown",
-            "gender" : 1,
+            "gender" : 0,
             "era" : 1985,
             "age" : 65,
             "visits" : [
@@ -13,7 +13,7 @@ let dict: [String : [[String : Any?]]] = [
         ],
         [
             "name" : "Marty McFly",
-            "gender" : 1,
+            "gender" : 0,
             "era" : 1985,
             "age" : 17,
             "visits" : [
