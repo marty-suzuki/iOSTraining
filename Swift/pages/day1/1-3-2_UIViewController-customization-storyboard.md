@@ -49,7 +49,7 @@ xibはUIViewやUIViewControllerのパーツや画面単位でのUIをGUIを用�
 * Class **SampleViewController** , Subclass of **UIViewController**, Also create XIB Fileのチェックは**外します**
 * `Next → Create` とすると新規ファイル`SampleViewController.swift`が作成されます
 
-![new file](./images/1_3_1/image1.png)
+![new file](./images/1_3_2/image1.png)
 
 ## storyboard上での操作
 
@@ -65,12 +65,12 @@ xibはUIViewやUIViewControllerのパーツや画面単位でのUIをGUIを用�
 Main.storyboardを選択して、右側のユーティリティエリアのオブジェクトライブラリからViewControllerを探し、中央の編集エリアにドラッグ&ドロップします。
 こうすることで、このstoryboard上に新しいViewControllerが生成されます。
 
-![drop down new view controller](./images/1_3_1/image2.png)
+![drop down new view controller](./images/1_3_2/image2.png)
 
 今新しく作ったViewControllerのクラスはデフォルトである UIViewControllerになります。このクラスを自分の作ったViewControllerに切り替えます。
 ドラッグ&ドロップしたViewControllerを選択した上で右側のユーティリティエリアの上部左から三番目のIdentity inspectorの中にあるClassを**SampleViewController**にします
 
-![set class](./images/1_3_1/image3.png)
+![set class](./images/1_3_2/image3.png)
 
 ### Initial View Controllerに設定
 
@@ -83,7 +83,7 @@ storyboardでSampleViewControllerを選択した状態で、右側のユーテ�
 すると、ViewControllerに向かって付いていた矢印が SampleViewControllerに移ると思います。そうなっていればOKです。
 この矢印はそのStoryboardのInitial View Controllerの印です。
 
-![customized view](./images/1_3_1/image4.png)
+![customized view](./images/1_3_2/image4.png)
 
 ### SampleViewControllerのカスタマイズ
 
@@ -98,11 +98,11 @@ UIKitに慣れてくると次第に理解が深まると思います。
 まだAutolayoutの設定をしていないと思うのでパーツは左上に寄せておくと良いでしょう。
 また次の章で利用するのでラベル(UILabel)とボタン(UIButton)を一つずつ配置しておいてください。
 
-![customized view](./images/1_3_1/image5.png)
+![customized view](./images/1_3_2/image5.png)
 
 ここまでできれば、一度実行してみてください。シミュレータでカスタマイズしたViewControllerが表示されればOKです。
 
-![result](./images/1_3_1/image6.png)
+![result](./images/1_3_2/image6.png)
 
 ## 各パーツと実装を結びつける
 
@@ -135,11 +135,11 @@ class SampleViewController: UIViewController {
 
 プロパティの宣言ができれば再びstoryboardに戻ってSampleViewControllerを選択します。Document OutlineのSample View Controllerを選択して右クリックをすると次のようなパネルが出現します。
 
-![result](./images/1_3_1/image7.png)
+![result](./images/1_3_2/image7.png)
 
 この中に先ほど作成した `label` という選択肢があると思います。labelの右側の円内からドラッグしてViewController上のラベルにドロップしてください。こうすることでコード上のプロパティとstoryboard上のUIとを結びつけることができます。
 
-![result](./images/1_3_1/image8.png)
+![result](./images/1_3_2/image8.png)
 
 
 ##### labelの中身を書き換える
@@ -184,7 +184,7 @@ SampleViewControllerに以下のメソッドを定義してください
 再びstoryboardに戻ってSampleViewControllerを選択し、Document OutlineのSampleViewControllerを選択して右クリックをすると次のようなパネルが出現します。
 つぎは今定義したメソッドが増えていると思うので、ボタンにドラッグ&ドロップします。
 
-![img](./images/1_3_1/image9.png)
+![img](./images/1_3_2/image9.png)
 
 ドロップしたときに、どのアクションと対応するかを聞かれると思います。ボタンタップ時には `Touch Up Inside` を選ぶのがよいでしょう。
 
@@ -207,4 +207,4 @@ UIButtonをタップしたらラベルの文字列が `YES` となるように�
 ### おまけ
 Assistant Editorを表示した上で、`control + ドラッグ&ドロップ`でプロパティの追加とIBOutletやIBActionの結びつけを一発でできます。
 
-![img](./images/1_3_1/image10.png)
+![img](./images/1_3_2/image10.png)
