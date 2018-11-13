@@ -2,16 +2,16 @@
 //  SampleViewController.swift
 //  VCCustomization
 //
-//  Created by 鈴木大貴 on 2016/10/15.
-//  Copyright © 2016年 marty-suzuki. All rights reserved.
+//  Created by marty-suzuki on 2018/11/13.
+//  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
 import UIKit
 
 class SampleViewController: UIViewController {
-    
+
     @IBOutlet weak var label: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,12 +19,6 @@ class SampleViewController: UIViewController {
         label.text = "Test"
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     @IBAction func buttonTapped(_ sender: UIButton) {
         label.text = "YES"
     }
