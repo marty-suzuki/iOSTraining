@@ -14,15 +14,4 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func presentTapped(_ sender: UIButton) {
-        let viewController = SampleViewController(nibName: "SampleViewController", bundle: nil)
-        present(viewController, animated: true, completion: nil)
-    }
 }
-

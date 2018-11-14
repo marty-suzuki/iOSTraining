@@ -2,32 +2,34 @@
 
 参考 : [UIViewController Class Reference](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/index.html) | [ViewController プログラミングガイド](https://developer.apple.com/jp/devcenter/ios/library/documentation/ViewControllerPGforiOS.pdf)
 
-MVCの C。Viewの表示と管理やモデルとViewの連携などを行います。
-iOSアプリケーションの画面の一単位として認識すると、比較的理解がしやすいと思います。
-
 # UIViewControllerの役割
 
 役割は大きく分けて三つあります。
 
 1. **コンテンツを表示させる**
 2. 複数の UIViewController を管理するコンテナ
-3. [**他のViewControllerと連携する Modal**(1.4.1)](./1-4-1_ModalViewController-storyboard.md)
+3. [**他のViewControllerと連携する Modal**(1.4.1)](./1-4-1_ModalViewController-xib.md)
 
-本節では1、3の解説をします(2 は次章)。そしてUIViewControllerの[**Lifecycle**(1.5)](1-5_UIViewController-lifecycle.md)に関しても説明します。
+本節では**1**、**3**の解説をします。(2に関しては次章)
+そしてUIViewControllerのライフサイクルに関しても、[1.5 ライフサイクル](1-5_UIViewController-lifecycle.md)にて説明します。
 
 # コンテンツを表示させる
 
 ViewControllerを用いてコンテンツを表示するとき、もっともよく使われる方法はUIViewControllerを継承したクラスを作り、カスタマイズしていく方法です。
 以下ではその方法について説明します。
 
-UIViewControllerのデザインのカスタマイズ方法は大きく分けてxibを用いる方法とstoryboardを用いる方法があります。
+UIViewControllerのデザインのカスタマイズ方法は、大きく分けて以下の2つの方法があります。
 
-xibはUIViewやUIViewControllerのパーツや画面単位でのUIをGUIを用いてデザインするツールです。storyboardは複数のViewController間の連携や画面遷移などをよりデザインしやすくしたツールです。
+- xibを用いる
+- storyboardを用いる
+
+xibはInterface Builderを利用して、UIViewやUIViewControllerのパーツを画面単位でデザインするツールです。
+storyboardは複数のViewController間の連携や画面遷移などをよりデザインしやすくしたツールです。
 細かいパーツや再利用性の高いパーツを作る際はxibを用いるほうが利便性が高く、ViewController間の連携を考えるときはstoryboardの方が便利なケースがあります。
 そのためどちらを使うかはケースバイケースだと認識すればよいでしょう。
 
-このページではstoryboardを用いた資料の作り方について解説します。xibの資料をご覧になりたい場合はこちらをご覧ください。
-[1.3.2 UIViewControllerのカスタマイズ(xib)](./1-3-2_UIViewController-customization-xib.md)
+このページではstoryboardを用いた方法について解説します。xibの資料をご覧になりたい場合はこちらをご覧ください。
+[1.3.1 UIViewControllerのカスタマイズ(xib)](./1-3-1_UIViewController-customization-xib.md)
 
 ## はじめに
 
@@ -194,7 +196,7 @@ SampleViewControllerに以下のメソッドを定義してください
 ここまでで、storyboardを用いてUIViewControllerをカスタマイズすることができると思います。
 ここでレクチャーした内容を実際に行うのが演習課題となります。
 
-解答例については[samples/day1/sample1-3-1/VCCustomization](../../samples/day1/sample1-3-1)を参照してください。
+解答例については[samples/day1/sample1-3-2/VCCustomization](../../samples/day1/sample1-3-2)を参照してください。
 
 ##### 課題1.
 新規プロジェクトを作成してください。

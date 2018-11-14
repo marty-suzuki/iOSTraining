@@ -2,20 +2,24 @@
 //  SampleViewController.swift
 //  VCCustomization
 //
-//  Created by 鈴木大貴 on 2016/10/15.
-//  Copyright © 2016年 marty-suzuki. All rights reserved.
+//  Created by 鈴木 大貴 on 2018/11/14.
+//  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
 import UIKit
 
 class SampleViewController: UIViewController {
 
-    @IBOutlet weak var grayView: UIView!
-    
+    @IBOutlet weak var label: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        grayView.backgroundColor = .red
+        label.text = "Test"
+    }
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        label.text = "YES"
     }
 }
