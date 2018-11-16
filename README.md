@@ -34,8 +34,8 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 4. モーダル
 
-    - 課題 [1.4.1 UIViewControllerのModalViewController（storyboard）](./Swift/pages/day1/1-4-1_ModalViewController-storyboard.md)  
-    - 補足 [1.4.2 UIViewControllerのModalViewController（xib）](./Swift/pages/day1/1-4-2_ModalViewController-xib.md)  
+    - 課題 [1.4.1 UIViewControllerのModalViewController（xib）](./Swift/pages/day1/1-4-1_ModalViewController-xib.md)  
+    - 補足 [1.4.2 UIViewControllerのModalViewController（storyboard）](./Swift/pages/day1/1-4-2_ModalViewController-storyboard.md)  
     - プロジェクト [day1/1.4](./Swift/before/day1/1.4)
 
 5. ライフサイクル
