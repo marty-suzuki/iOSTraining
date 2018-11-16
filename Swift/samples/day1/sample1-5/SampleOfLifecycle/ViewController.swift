@@ -10,11 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    required init?(coder aDecoder: NSCoder) {
-        print("init(coder:)")
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         print("viewDidLoad")
         super.viewDidLoad()
@@ -52,9 +47,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTapPresent(_ sender: UIButton) {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "SecondViewController") else {
-            return
-        }
+        let viewController = SecondViewController()
         present(viewController, animated: true, completion: nil)
     }
 }
