@@ -406,4 +406,4 @@ segue経由で画面を表示するときのdelegateの設定は `prepare(for:se
 
 ##### 回答
 
-回答については [samples/day1/sample1-4-1/VCCustomization](../../samples/day1/sample1-4-1) をごらんください。
+回答については [samples/day1/sample1-4-2/VCCustomization](../../samples/day1/sample1-4-2) をごらんください。
