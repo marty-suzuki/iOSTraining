@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BodyLabelDefinable {
-    weak var bodyLabel: UILabel! { get set }
+    var bodyLabel: UILabel! { get }
 }
 
 class CustomCell: UITableViewCell, BodyLabelDefinable {
