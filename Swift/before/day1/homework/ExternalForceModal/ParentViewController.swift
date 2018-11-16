@@ -1,15 +1,15 @@
 //
-//  ViewController.swift
+//  ParentViewController.swift
 //  ExternalForceModal
 //
-//  Created by 鈴木大貴 on 2016/10/16.
-//  Copyright © 2016年 marty-suzuki. All rights reserved.
+//  Created by 鈴木 大貴 on 2018/11/16.
+//  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
 import UIKit
 
 // TODO: SecondViewControllerのdelegateを準拠する
-class ViewController: UIViewController {
+class ParentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +22,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showTapped(_ sender: UIButton) {
-        let secondViewController = SecondViewController(nibName: "SecondViewController", bundle: nil)
+        showSecondViewController()
+    }
+
+    private func showSecondViewController() {
+        let child = ChildViewController()
         // TODO: secondViewControllerのdelegateを自分にセット
         // TODO: present(viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
     }
 
     // TODO: SecondViewController の delegateメソッドを実装
 }
-
