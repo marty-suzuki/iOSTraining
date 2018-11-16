@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91ADDC2521B0CE08009D6C40 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91ADDC2421B0CE08009D6C40 /* FirstViewController.xib */; };
+		91ADDC2721B0D838009D6C40 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91ADDC2621B0D838009D6C40 /* SecondViewController.xib */; };
 		9DAA8B8A1DBD28CD00EFB19C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA8B891DBD28CD00EFB19C /* AppDelegate.swift */; };
 		9DAA8B8C1DBD28CD00EFB19C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA8B8B1DBD28CD00EFB19C /* FirstViewController.swift */; };
 		9DAA8B8E1DBD28CD00EFB19C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA8B8D1DBD28CD00EFB19C /* SecondViewController.swift */; };
-		9DAA8B911DBD28CD00EFB19C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA8B8F1DBD28CD00EFB19C /* Main.storyboard */; };
 		9DAA8B931DBD28CD00EFB19C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA8B921DBD28CD00EFB19C /* Assets.xcassets */; };
 		9DAA8B961DBD28CD00EFB19C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA8B941DBD28CD00EFB19C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91ADDC2421B0CE08009D6C40 /* FirstViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstViewController.xib; sourceTree = "<group>"; };
+		91ADDC2621B0D838009D6C40 /* SecondViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
 		9DAA8B861DBD28CD00EFB19C /* ViewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAA8B891DBD28CD00EFB19C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DAA8B8B1DBD28CD00EFB19C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9DAA8B8D1DBD28CD00EFB19C /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		9DAA8B901DBD28CD00EFB19C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9DAA8B921DBD28CD00EFB19C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DAA8B951DBD28CD00EFB19C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DAA8B971DBD28CD00EFB19C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,8 +60,9 @@
 			children = (
 				9DAA8B891DBD28CD00EFB19C /* AppDelegate.swift */,
 				9DAA8B8B1DBD28CD00EFB19C /* FirstViewController.swift */,
+				91ADDC2421B0CE08009D6C40 /* FirstViewController.xib */,
 				9DAA8B8D1DBD28CD00EFB19C /* SecondViewController.swift */,
-				9DAA8B8F1DBD28CD00EFB19C /* Main.storyboard */,
+				91ADDC2621B0D838009D6C40 /* SecondViewController.xib */,
 				9DAA8B921DBD28CD00EFB19C /* Assets.xcassets */,
 				9DAA8B941DBD28CD00EFB19C /* LaunchScreen.storyboard */,
 				9DAA8B971DBD28CD00EFB19C /* Info.plist */,
@@ -128,7 +131,8 @@
 			files = (
 				9DAA8B961DBD28CD00EFB19C /* LaunchScreen.storyboard in Resources */,
 				9DAA8B931DBD28CD00EFB19C /* Assets.xcassets in Resources */,
-				9DAA8B911DBD28CD00EFB19C /* Main.storyboard in Resources */,
+				91ADDC2521B0CE08009D6C40 /* FirstViewController.xib in Resources */,
+				91ADDC2721B0D838009D6C40 /* SecondViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,14 +152,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9DAA8B8F1DBD28CD00EFB19C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9DAA8B901DBD28CD00EFB19C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9DAA8B941DBD28CD00EFB19C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -301,6 +297,7 @@
 				9DAA8B9C1DBD28CD00EFB19C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
