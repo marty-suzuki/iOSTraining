@@ -61,7 +61,7 @@ extension ViewController: UITableViewDelegate {
     //TODO: - 計算した高さをTableViewのDelegateを使って返す
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let string = sampleDataList[indexPath.row]
-        let attibutes = [ NSFontAttributeName : UIFont.boldSystemFont(ofSize: 25) ]
+        let attibutes = [ NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25) ]
         let maxSize = CGSize(width: view.bounds.size.width - 68, height: .greatestFiniteMagnitude)
         let rect = (string as NSString).boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: attibutes, context: nil)
         return ceil(rect.size.height) + 40
