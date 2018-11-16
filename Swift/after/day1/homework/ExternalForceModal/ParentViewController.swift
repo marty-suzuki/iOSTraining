@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  ParentViewController.swift
 //  ExternalForceModal
 //
-//  Created by 鈴木大貴 on 2016/10/16.
-//  Copyright © 2016年 marty-suzuki. All rights reserved.
+//  Created by 鈴木 大貴 on 2018/11/16.
+//  Copyright © 2018年 marty-suzuki. All rights reserved.
 //
 
 import UIKit
 
 // TODO: SecondViewControllerのdelegateを準拠する
-class ViewController: UIViewController {
-
+class ParentViewController: UIViewController {
+    
     // viewDidAppearが呼ばれたかどうかのproperty
     private var isFirstViewDidAppear = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // 初回はif文に入って処理が終わる
@@ -38,19 +38,19 @@ class ViewController: UIViewController {
     @IBAction func showTapped(_ sender: UIButton) {
         showSecondViewController()
     }
-    
+
     private func showSecondViewController() {
-        guard let secondViewController = storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController else { return }
+        let child = ChildViewController()
         // TODO: secondViewControllerのdelegateを自分にセット
-        secondViewController.delegate = self
+        child.delegate = self
         // TODO: present(viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
-        present(secondViewController, animated: true, completion: nil)
+        present(child, animated: true, completion: nil)
     }
 }
 
-extension ViewController: SecondViewControllerDelegate {
+extension ParentViewController: ChildViewControllerDelegate {
     // TODO: SecondViewController の delegateメソッドを実装
-    func secondViewController(_ viewController: SecondViewController, didTapClose button: UIButton) {
+    func childViewControllerDidTapClose(_ viewController: ChildViewController) {
         dismiss(animated: true, completion: nil)
     }
 }
