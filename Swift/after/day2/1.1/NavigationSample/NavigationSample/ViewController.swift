@@ -36,11 +36,10 @@ class ViewController: UIViewController {
         default:
             return
         }
-        guard let viewContrller = storyboard?.instantiateViewController(withIdentifier: "NextViewController") as? NextViewController else {
-            return
-        }
-        viewContrller.buttonString = buttonString
-        navigationController?.pushViewController(viewContrller, animated: true)
+
+        let viewController = NextViewController()
+        viewController.buttonString = buttonString
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
