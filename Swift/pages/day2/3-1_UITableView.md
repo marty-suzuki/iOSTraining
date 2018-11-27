@@ -7,24 +7,23 @@
 
 # UITableViewとは
 
-TableViewとはiOSのアプリケーションで良く用いられる、垂直方向にスクロールしながら情報を表示することの出来るUIViewのサブクラスの一つです。
+UITableViewとはiOSのアプリケーションで良く用いられる、垂直方向にスクロールしながら情報を表示することの出来るUIViewのサブクラスの一つです。
 
 > ![https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.1/tableview_example.png](https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.1/tableview_example.png)
 >
-> [iOS Table Viewプログラ
-ミングガイド](https://developer.apple.com/jp/devcenter/ios/library/documentation/TableView_iPhone.pdf)より引用
+> [iOS Table Viewプログラミングガイド](https://developer.apple.com/jp/devcenter/ios/library/documentation/TableView_iPhone.pdf)より引用
 
 ### 特徴
 
 - スクロールは垂直方向にのみ行うことができる
-  - (補足: iOS6から垂直と水平の両方にセルを置くことの出来るUICollectionViewが登場しました）
-- 表示するコンテンツはセルとよばれる単位ごとに構成し、セクションで区切ることもできる
-- delegateやdatasourceなどのプロトコルを実装することで、表示するデータなどを制御する
+- 表示するコンテンツはセルとよばれる単位ごとに構成し、セクションで区切ることができる
+- delegateやdatasourceなどのプロトコルに準拠することで、表示するデータや振る舞いを実装する
 
-### どういう時に使うのか
+### 用途
 
-Appleのドキュメントによると、以下のような目的で利用することを想定しています。
-- 階層構造のデータ内をユーザが移動できるようにする
+Appleのドキュメントでは、以下の用途を想定しています。
+
+- ユーザが階層構造のデータ内を移動できるようにする
 - インデックス付きの項目リストを表示する
 - 視覚的にグループ分けされた詳細情報とコントロールを表示する
 - 選択可能な選択肢リストを表示する
@@ -40,23 +39,16 @@ Appleのドキュメントによると、以下のような目的で利用する
 
 # 実習
 
-このUITableViewを実際に表示しながら、TableViewの仕組みに慣れて行きましょう
+このUITableViewを実際に表示しながら、仕組みに慣れて行きましょう
 
 #### サンプルプロジェクトの作成
 
-- Xcodeからサンプルプロジェクトを開き、新しいプロジェクトでSingle View Applicationを選びます。
-
-
-
-- storyboardのViewControllerを選び、viewにTableViewをドロップします。
-
-![](./images/3_1/image2.png)
-
-- storyboardのViewController.swiftのtableviewとを結びます。
-
-![](./images/3_1/image3.png)
-
-- UITableViewDataSourceとUITableViewDelegateの継承を宣言します。
+1. Xcodeからサンプルプロジェクトを開き、新しいプロジェクトでSingle View Applicationを選びます。
+1. storyboardのViewControllerを選び、viewにUITableViewをドロップします。
+  ![](./images/3_1/image2.png)
+1.  storyboardのUITableViewをViewController.swiftに紐づけます。
+  ![](./images/3_1/image3.png)
+1. UITableViewDataSourceとUITableViewDelegateの継承を宣言します。
 
 ```swift
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -80,6 +72,7 @@ override func viewDidLoad() {
 こうすることで、tableviewのデータの源(何個セルを表示するか、セルに何を表示するか)としての働きと、見た目(各セルの高さやセルが選択されたときのアクション)などの処理が委譲されたことになります。
 
 #### tableviewのdataSource, delegateメソッドの追加
+
 UITableViewのDataSourceやDelegateには主に以下のメソッドがあります
 
 **UITableViewDataSource**
@@ -104,10 +97,12 @@ UITableViewのDataSourceやDelegateには主に以下のメソッドがありま
   - section目のセクションのヘッダービューを作って返す
 
 ※indexPathとは
+
 - 第hoge章、第fuga段落、第piyo項目のような階層構造のindexを指定できるオブジェクト
 - よく使うのは indexPath.section と indexPath.row
 
-※ DataSourceとDelegateの詳細はこちらをどうぞ
+※ DataSourceとDelegateの詳細はこちら
+
 - [https://developer.apple.com/reference/uikit/uitableviewdatasource](https://developer.apple.com/reference/uikit/uitableviewdatasource)
 - [https://developer.apple.com/reference/uikit/uitableviewdelegate](https://developer.apple.com/reference/uikit/uitableviewdelegate)
 
@@ -126,8 +121,9 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 ```
 
 **`dequeueReusableCell(withIdentifier:)`について**  
-UITableViewでは、同じタイプのセルを使い回すことがよくあるため、内部でそのセルをキャッシュしておく仕組みがあります。一度表示したけど非表示になったセルなどがこのキャッシュに回されて`dequeueReusableCell(withIdentifier:)`を使うことでキャッシュされたセルを再利用して表示します。
-利用するセルはtableViewに予め登録しておく必要があります。登録には
+
+UITableViewでは、同じレイアウトのセルを使い回すことがあるため、一度表示されたセルはキャッシュされています。`dequeueReusableCell(withIdentifier:)`を使うことでキャッシュされたセルを再利用して表示することができます。
+キャッシュを利用するにはUITableViewのインスタンスに予め登録しておく必要があります。登録には
 `register(_:forCellReuseIdentifier:)` のメソッドを利用します。registerClassには利用するセルのクラスを、CellReuseIdentifierにはキャッシュから引いてくるときに利用する識別子を指定します。
 登録は、viewDidLoadなどの初期化のときにしておくと良いでしょう。
 
@@ -144,7 +140,7 @@ tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
 ###### 1. セルの再利用
 
 行の数を100個ほどに`tableView(_:cellForRowAt:)`を以下のように書き換えてみてください。
-途中から番号がおかしいものがちらほら出てくると思います。これは、セルを再利用した結果以前書き込んだ内容が消去されていないために起きます。
+途中から番号がおかしいものがちらほら出てくると思います。これは、セルを再利用された場合、以前書き込んだ内容が消去されていないために起きます。
 
 ```swift
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,5 +157,6 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 ```
 
 ###### 2. TableViewのスタイルを変える
-UITableViewには`Plain`, `Grouped`の二種類のスタイルが用意されています。デフォルトではPlainが設定されていますが、storyboard上から変更することも可能です。
+
+UITableViewには`Plain`, `Grouped`の二種類のスタイルが用意されています。デフォルトではPlainが設定されています。Storyboard上から変更することも可能です。
 Attribute Inspector から Table View のスタイルを変更してみたください。
