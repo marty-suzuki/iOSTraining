@@ -1,7 +1,7 @@
 > 参考  [mixi-inc/iOSTraining 4.4 UITableViewのその他のオプション、カスタマイズ](https://github.com/mixi-inc/iOSTraining/wiki/4.4-UITableView%E3%81%AE%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%80%81%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA)
 
 3.3までで、最低限のUITableViewの使い方は紹介しました。
-この章では、3.3までで説明できなかったけど、よく用いられるtableviewの機能を紹介します。
+さらに、よく用いられるTableViewの機能を紹介します。
 
 **目次**
 
@@ -17,7 +17,7 @@
 ![](./images/3_4/image1.png)
 
 セクションを追加する時に必要なメソッドは`numberOfSections(in:)`のみで、TableViewに表示するセクションの数を返してやります。  
-行数は各セクションごとに区切られ、tableview全体で通しの番号でないので注意してください
+行数は各セクションごとに区切られ、TableView全体で通しの番号はないので注意してください
 
 ### セクションを実際に使ってみる
 
@@ -26,7 +26,7 @@
 新しく作り直す時、必要な処理は
 
 1. サンプルプロジェクトを作る
-2. xibでviewControllerにtableviewを貼付け、ソースコードと紐づける
+2. xibでViewControllerにTableViewを貼付け、ソースコードと紐づける
 3. ヘッダファイルで UITableViewDataSourceとUITableViewDelegateの委譲を宣言し、実装する。必要なメソッドは以下の二つです
   - `tableView(_:numberOfRowsInSection:)`
   - `tableView(_:cellForRowAt:)`
@@ -50,7 +50,7 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 
 
 セクションの区切りが出来ているのが分かるかと思います。
-tableviewのスタイルをgroupedにすると、より分かれて表示できます。
+TableViewのスタイルをgroupedにすると、より分かれて表示できます。
 
 セクションにはタイトルを付けることもできます。delegateメソッドの一つである、tableView:titleForHeaderInSection:でタイトルを返すことができます。
 例えば、以下のように実装すると
@@ -125,19 +125,19 @@ func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) ->
 
 # 3. UIRefreshControl
 
-UIRefreshControlとは、引っぱり更新やPullToRefreshと呼ばれるアクションをサポートするUIで、tableviewを一番上までスクロールしてさらに引っ張ることでデータを更新するUIです。
+UIRefreshControlとは、引っぱり更新やPullToRefreshと呼ばれるアクションをサポートするUIで、TableViewを一番上までスクロールしてさらに引っ張ることでデータを更新するUIです。
 
 ### 前提条件など
 
-このコンポーネントは、UITableViewControllerというview controller の機能の一つとして提供されています。
+このコンポーネントは、UITableViewControllerというViewController の機能の一つとして提供されています。
 そのため、UITableViewControllerを継承したクラスを作り、その中で実装する必要があります。
 
 ### 仕組み
 
 - UIRefreshControl は UIView > UIControl を継承しているview コンポーネントです。
-- ある一定量以上引っ張られると UIControlEvent.ValueChanged のcontrol eventが飛ばされます
+- 一定量以上引っ張られると UIControlEvent.ValueChanged がエミットされます
   - このイベントを取得できるようにセレクタを登録しておきます
-  - 一定量以上引っ張ると、tableview上部でクルクル回り続けます
+  - 一定量以上引っ張ると、TableView上部でインジケータが回り続けます
 - 処理が終わったら、`endRefreshing`を呼ぶことでrefresh control をしまうことができます。
 
 ![https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.4/RefershControll.png](https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.4/RefershControll.png)
@@ -154,7 +154,7 @@ UIRefreshControlとは、引っぱり更新やPullToRefreshと呼ばれるアク
 (TableViewControllerはUITableViewControllerを継承したクラスです)
 下準備はここまでです。
 
-###### 3. UIRefreshControlの準備 - view controllerのviewDidLoadに以下を追加してください
+###### 3. UIRefreshControlの準備 - ViewControllerのviewDidLoadに以下を追加してください
 
 ```swift
 // UIRefreshControlの生成
