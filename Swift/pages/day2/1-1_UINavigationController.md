@@ -148,7 +148,7 @@ UIAppearance を用いると、特定の UIComponent のデザインを一括し
 AppDelegate.swift
 
 ```swift
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // 省略
     if let navigationController = window?.rootViewController as? UINavigationController {
         navigationController.navigationBar.setBackgroundImage(UIImage(named: "customNavBarImage1"), for: .default)
