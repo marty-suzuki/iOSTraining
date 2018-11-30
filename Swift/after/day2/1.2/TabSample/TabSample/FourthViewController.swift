@@ -10,15 +10,12 @@ import UIKit
 
 class FourthViewController: UIViewController {
 
-    init() {
-        super.init(nibName: "FourthViewController", bundle: nil)
-        tabBarItem.title = "Fourth"
+    static func createWithTabBarItem() -> UIViewController {
+        let viewController = FourthViewController()
+        viewController.tabBarItem = UITabBarItem(title: "Fourth", image: UIImage(named: "first"), tag: 3)
+        return viewController
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
