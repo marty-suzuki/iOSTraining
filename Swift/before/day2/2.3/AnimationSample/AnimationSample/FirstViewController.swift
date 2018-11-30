@@ -10,6 +10,12 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    static func create() -> UIViewController {
+        let viewController = FirstViewController()
+        viewController.tabBarItem = UITabBarItem(title: "First", image: UIImage(named: "first"), tag: 0)
+        return viewController
+    }
+    
     private struct Const {
         static let ojisanInitialFrame = CGRect(x: 0, y: 0, width: 170, height: 170)
         static let ojisanMovedFrame = CGRect(x: 150, y: 416, width: 170, height: 170)

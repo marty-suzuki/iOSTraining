@@ -10,6 +10,12 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    static func create() -> UIViewController {
+        let viewController = SecondViewController()
+        viewController.tabBarItem = UITabBarItem(title: "Second", image: UIImage(named: "second"), tag: 1)
+        return viewController
+    }
+
     private struct Const {
         static let ojisanInitialFrame = CGRect(x: 85, y: 115, width: 170, height: 170)
     }
