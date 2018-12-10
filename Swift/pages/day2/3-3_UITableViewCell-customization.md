@@ -13,14 +13,14 @@ UITableViewCellには、デフォルトでいくつかのオプションがあ�
 ![https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.3/29thCell.png](https://raw.github.com/mixi-inc/iOSTraining/master/Doc/Images/4.3/29thCell.png)
 
 
-そこで、ここではxibを使ってカスタムセルを作り、tableviewに表示する方法を紹介します。
+そこで、ここではxibを使ってカスタムセルを作り、TableViewに表示する方法を紹介します。
 
 # UITableViewとカスタムセル
 
-カスタムセルを作り、tableviewで用いるには以下の手順が必要です
+カスタムセルを作り、TableViewで用いるには以下の手順が必要です
 - xibでセルを作る
-  - さらに動的な変更を加える場合は.mファイルを追加しその中で変更を加える、ということも可能です
-- 作ったtableviewのセルとして登録
+  - さらに動的な変更を加える場合は.swiftファイルを追加しその中で変更を加える、ということも可能です
+- 作ったTableViewのセルとして登録
 - セルの高さに合わせてcellの高さを変える
 
 この手順に沿って、実装を進めて行きます。
@@ -28,7 +28,6 @@ UITableViewCellには、デフォルトでいくつかのオプションがあ�
 (注:TableViewのスタイルはPlainにしておいてください）
 
 今回は以下の画像を使うので、サンプルプロジェクトに追加してください
-
 
 ![](./images/3_3/icon1.png)
 ![](./images/3_3/icon2.png)
@@ -129,7 +128,7 @@ cell.bodyLabel.text = "\(indexPath.row)"
 
 1. 新しいxibの追加
 2. 異なるCellReuseIdentifierをつける
-3. 各行ごとに用いるCellReuseIdentifierを使い分ける
+3. 各行ごとに用いるCellのCellReuseIdentifierを使い分ける
 
 #### 1. 新しいxibの追加
 
@@ -144,7 +143,7 @@ xibにTable View Cell を追加し、以下のようにパーツを配置して�
 
 #### 2. 異なるCellReuseIdentifierをつける
 
-今、二つのセルのxibを作りました。tableviewではCellReuseIdentifierを用いて出し分けを行っているので、それぞれのxibに異なるcellReuseIdentifierを設定します。
+今、二つのセルのxibを作りました。TableViewではCellReuseIdentifierを用いて出し分けを行っているので、それぞれのxibに異なるcellReuseIdentifierを設定します。
 
 viewControllerのviewDidLoadでregisterNibをしていた箇所を以下のように変更します。
 
@@ -170,12 +169,12 @@ cell.bodyLabel.text = "\(indexPath.row)"
 
 カスタムセルの利用はここまでとなります。お疲れ様でした。
 
+### TIPS: 同じクラスに対して二つのxibを登録できるか
 
-### TIPS : 同じクラスに対して二つのxibを登録できるのか？
-登録することができます。というのも、xibとクラスは必ずしも一対一で対応していないためです。
-例えばViewControllerの挙動は一緒だけど、見た目(xib)だけは変えたい、とか今回のように表示する項目は同じだけどセルの見た目は変えたいということがあります。iPadとiPhoneで同じコントローラ使いたいけどxibは別物がいい、と言う時ですね。
+登録することができます。なぜなら、xibとクラスは必ずしも一対一で対応していないためです。
+例えばViewControllerの挙動は一緒だけど、見た目(xib)だけは変えたい場合や、今回のように表示する項目は同じだけどセルの見た目は変えたいということがあります。具体的にはiPadとiPhoneで同じコントローラ、xibは別物がいいと言う時です。
 
-そういう時のために、一つのクラスに対して複数のxibを登録することができるようになっています。view controller の `init(nibName:bundle:)`などがその例で、同じクラスだけどxibを切り替えて使えるようになっています。
+そういう時のために、一つのクラスに対して複数のxibを登録することができるようになっています。ViewControllerの `init(nibName:bundle:)`などがその例で、同じクラスだけどxibを切り替えて使えるようになっています。
 
 ※classが違っても、protocolで宣言するpropertyを共通化するパターンもあります。
 

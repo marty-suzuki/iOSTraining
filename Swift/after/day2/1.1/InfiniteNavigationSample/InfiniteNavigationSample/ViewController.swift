@@ -28,10 +28,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pushButtonTapped(_ sender: UIButton) {
-        guard let viewControlelr = storyboard?.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {
-            return
-        }
-        navigationController?.pushViewController(viewControlelr, animated: true)
+        navigationController?.pushViewController(ViewController(), animated: true)
     }
 }
-

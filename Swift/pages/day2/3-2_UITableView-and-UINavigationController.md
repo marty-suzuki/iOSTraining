@@ -5,17 +5,16 @@ tableviewのセルを選択したときに、次の階層にpushさせてみま�
 
 #### 事前準備 - NavigationControllerの追加 -
 
-push, popの画面遷移を行うために、先ほどのview controllerをnavigation controllerの上に乗っけます。  
-Initial View Controllerをnavigation controllerにして、rootViewControllerをview controllerにしてください。
+push, popの画面遷移を行うために、TableViewを持つViewControllerをUINavigationControllerに載せましょう。
+NavigationControllerをInitial View Controllerに設定して、ViewControllerをNavigationControllerのrootViewControllerに設定してください。
 
 ![](./images/3_2/image1.png)
 
-
 ## `deselectRow(at:animated:)`
 
-UITableViewのあるセルが選択されると、delegateメソッドである`tableView(_:didSelectRowAt:)`が呼ばれます。
-- このメソッドが呼ばれた時に、navigation controllerでpushできるようにしてみましょう。
-- 新しく作るview controllerは新規でも既存のものでも構いません。
+セルが選択されると、delegateメソッドである`tableView(_:didSelectRowAt:)`が呼ばれます。
+- このメソッドが呼ばれた時に、NavigationControllerでpushできるようにしてみましょう。
+- 新しく作るViewControllerは新規でも既存のものでも構いません。
 
 ```swift
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -10,6 +10,12 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    static func create() -> UIViewController {
+        let viewController = SecondViewController()
+        viewController.tabBarItem = UITabBarItem(title: "Second", image: UIImage(named: "second"), tag: 0)
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
