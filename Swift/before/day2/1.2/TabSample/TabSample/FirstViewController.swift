@@ -10,6 +10,12 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    static func createWithTabBarItem() -> UIViewController {
+        let viewController = FirstViewController()
+        viewController.tabBarItem = UITabBarItem(title: "First", image: UIImage(named: "first"), tag: 0)
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +25,5 @@ class FirstViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

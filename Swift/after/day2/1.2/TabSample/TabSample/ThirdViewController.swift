@@ -10,6 +10,12 @@ import UIKit
 
 class ThirdViewController: UIViewController {
 
+    static func createWithTabBarItem() -> UIViewController {
+        let viewController = ThirdViewController()
+        viewController.tabBarItem = UITabBarItem(title: "Third", image: UIImage(named: "first"), tag: 2)
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

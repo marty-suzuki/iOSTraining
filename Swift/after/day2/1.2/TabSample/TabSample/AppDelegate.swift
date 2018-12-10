@@ -16,11 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if
-            let tabBarController = window?.rootViewController as? UITabBarController,
-            let viewControllers = tabBarController.viewControllers {
-            tabBarController.viewControllers = viewControllers + [FourthViewController()]
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [
+            FirstViewController.createWithTabBarItem(),
+            SecondViewController.createWithTabBarItem(),
+            ThirdViewController.createWithTabBarItem(),
+            FourthViewController.createWithTabBarItem(),
+        ]
+
+        // タグ番号が被らないように配列のindexを再設定している
+        tabBarController.viewControllers?.enumerated().forEach { args in
+            args.element.tabBarItem.tag = args.offset
         }
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = tabBarController
+        self.window = window
+        self.window?.makeKeyAndVisible()
+
         return true
     }
 
