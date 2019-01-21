@@ -172,6 +172,7 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 1. JSON
 
+    - 課題 [4.1.1 Codableを利用したシリアライズとデシリアライズ](./Swift/pages/day3/4-1-1_Codable.md)
     - 課題 [4.1.2 JSONSerializationを利用したシリアライズとデシリアライズ](./Swift/pages/day3/4-1-2_JSONSerialization.md)  
 
 2. 通信
