@@ -22,18 +22,18 @@
 KVO を実現するためには以下のステップが必要です
 
 1. 監視したいオブジェクトのキー値に対して監視登録をおこなう
-2. 監視対象に変化が起きたときの通知ハンドラーの実装
-3. 監視登録の解除
+2. 監視登録の解除
 
 ## 1. キー値の監視登録
 
 まず監視したい counter object を監視登録してみましょう。
 
 ```swift
-Counter.shared.addObserver(self, // [1] 監視者
-                forKeyPath: "count",  // [2] 監視対象のキー値
-                   options: [.new, .old], // [3] オプションの指定
-                   context: nil) //[4] 任意のオブジェクトを指定
+// [1] 監視者
+let observation = scrollView
+            .observe(\UIScrollView.contentOffset, // [2] 監視対象のキー値
+                     options: [.new], // [3] オプションの指定
+                     changeHandler: { scrollView, change in // do something }}) // [4] ハンドラーの指定
 ```
 
 ### [1] 監視者
@@ -44,52 +44,23 @@ Counter.shared.addObserver(self, // [1] 監視者
 ### [2] 監視対象のキー値
 
 監視したいオブジェクトのどのプロパティの変化を監視するかを指定します。  
-監視プロパティには、`dynamic`をつける必要があります。
+監視プロパティには、`@objc dynamic`をつける必要があります。
 
 ### [3] オプションの指定
 
 オプションを指定することで通知の際に取得できる値が変わってきます。
 [NSKeyValueObservingOptions](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSKeyValueObserving_Protocol/Reference/Reference.html#//apple_ref/doc/c_ref/NSKeyValueObservingOptions)
 
-### [4] 任意のオブジェクトを指定
+### [4] ハンドラーの指定
 
-任意のオブジェクトを指定することで、通知を受け取ったときにそのオブジェクトにアクセスすることができます。
+任意のオブジェクトを指定することで、通知を受け取ったときにそのオブジェクトにアクセスすることができます
 
-## 2. 通知ハンドラーの実装
-
-observer になったオブジェクトは、監視対象に変化があった場合このメソッドが呼び出されます。
-
-```objective-c
-override func observeValue(forKeyPath keyPath: String?,
-                                    of object: Any?,
-                                       change: [NSKeyValueChangeKey : Any]?,
-                                      context: UnsafeMutableRawPointer?) {
-    print(change)
-}
-```
-
-例えば、監視対象の count の値がインクリメントされた場合以下のようなログがはかれます。
-
-console log
-
-```
-Optional([__C.NSKeyValueChangeKey(_rawValue: new): 1, __C.NSKeyValueChangeKey(_rawValue: kind): 1, __C.NSKeyValueChangeKey(_rawValue: old): 2])
-```
-
-## 3. 監視登録の解除
+## 2. 監視登録の解除
 
 例えば、監視者オブジェクトが破棄された時など監視する必要がなくなった場合は監視解除を行う必要があります。
 
 ```swift
-deinit {
-    Counter.shared.removeObserver(self, forKeyPath: "count")
-}
-```
-
-※ `#keyPath`を使用して、登録や削除をするkeyPathを指定することも可能です。
-
-```swift
-Counter.shared.removeObserver(self, forKeyPath: #keyPath(Counter.count))
+observation.invalidate()
 ```
 
 ## 問題
