@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstViewController" customModule="NotificationSample" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="xOk-nd-NPO" id="qBS-d5-KJn"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="xOk-nd-NPO">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G3s-ky-pbs">
+                    <rect key="frame" x="109" y="313" width="157.5" height="41.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3G-mC-ncM">
+                    <rect key="frame" x="90.5" y="362.5" width="194.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbd-y2-mif">
+                    <rect key="frame" x="131" y="387.5" width="113" height="30"/>
+                    <state key="normal" title="PushNotification"/>
+                    <connections>
+                        <action selector="pushNotificationTapped:" destination="-1" eventType="touchUpInside" id="WPE-WL-iUf"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="G3s-ky-pbs" secondAttribute="centerX" id="07y-eU-pmS"/>
+                <constraint firstAttribute="centerY" secondItem="G3s-ky-pbs" secondAttribute="centerY" id="M7V-DR-FII"/>
+                <constraint firstItem="y3G-mC-ncM" firstAttribute="top" secondItem="G3s-ky-pbs" secondAttribute="bottom" constant="8" symbolic="YES" id="NL7-O8-CsY"/>
+                <constraint firstItem="Pbd-y2-mif" firstAttribute="centerX" secondItem="xOk-nd-NPO" secondAttribute="centerX" id="QB8-r5-KHW"/>
+                <constraint firstItem="y3G-mC-ncM" firstAttribute="centerX" secondItem="G3s-ky-pbs" secondAttribute="centerX" id="dtH-Rq-B2A"/>
+                <constraint firstItem="Pbd-y2-mif" firstAttribute="top" secondItem="y3G-mC-ncM" secondAttribute="bottom" constant="8" id="uC1-2F-O1a"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="JnY-5A-QDk"/>
+        </view>
+    </objects>
+</document>
