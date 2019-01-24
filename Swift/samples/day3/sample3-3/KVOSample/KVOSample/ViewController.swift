@@ -11,7 +11,7 @@ import UIKit
 class Counter: NSObject {
     static let shared = Counter()
     
-    dynamic var count: Int = 0
+    @objc dynamic var count: Int = 0
     
     private override init() {
         super.init()
@@ -21,32 +21,30 @@ class Counter: NSObject {
 class ViewController: UIViewController {
 
     @IBOutlet weak var countLabel: UILabel!
+    private var observation: NSKeyValueObservation?
     
     deinit {
-        Counter.shared.removeObserver(self, forKeyPath: #keyPath(Counter.count))
+        observation?.invalidate()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        countLabel.text = "\(Counter.shared.count)"
-        
-        Counter.shared.addObserver(self, forKeyPath: #keyPath(Counter.count), options: [.new, .old], context: nil)
-    }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        switch (keyPath, change?[.newKey] as? Int) {
-        case ((#keyPath(Counter.count))?, let newValue?):
-            countLabel.text = "\(newValue)"
-            
-        default:
-            break
+        countLabel.text = "\(Counter.shared.count)"
+
+        let changeHandler: (Counter, NSKeyValueObservedChange<Int>) -> Void = { [weak self] _, change in
+            guard let newValue = change.newValue else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.countLabel.text = "\(newValue)"
+            }
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+        self.observation = Counter.shared
+            .observe(\Counter.count,
+                     options: [.new],
+                     changeHandler: changeHandler)
     }
 
     @IBAction func countDownButtonTapped(_ sender: UIButton) {
@@ -58,8 +56,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pushButtonTapped(_ sender: UIButton) {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "ViewController") else { return }
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(ViewController(), animated: true)
     }
 }
 
