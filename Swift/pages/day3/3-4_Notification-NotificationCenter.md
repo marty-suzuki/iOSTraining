@@ -21,67 +21,58 @@
 通知を実現するためには以下のステップが必要です
 
 1. 通知を受けたいインスタンスに対して NotificationCenter にオブザーバ登録
-2. 通知ハンドラーの実装
-3. NotificationCenter に通知を post
-4. オブザーバ登録の解除
+2. NotificationCenter に通知を post
+3. オブザーバ登録の解除
 
 ## 1. NotificationCenter にオブザーバ登録
 
 ```swift
-NotificationCenter.default.addObserver(self, //[1]オブザーバとして登録
-                              selector: #selector(type(of: self).recieveNotification(_:)), //[2]通知ハンドラーの指定
-                                  name: NSNotification.Name(rawValue: "pushNotificationTapped"), //[3] 通知名
-                                object: nil) // [4] sender の指定
+//[1]オブザーバとして登録
+let observer: NSObjectProtocol = NotificationCenter.default
+    .addObserver(forName: Notification.Name(rawValue: "pushNotificationTapped"), //[2] 通知名
+                 object: nil, //[3] sender の指定
+                 queue: OperationQueue.main, //[4] 追加するQueueの指定
+                 using: { notification in // do something }) //[5] ハンドラーの指定
 ```
 
 ### [1]オブザーバとして登録
 
-オブザーバオブジェクトを指定します。指定したオブジェクトに変化通知が届きます。
+オブザーバオブジェクトを指定します。
 
-### [2]通知ハンドラーの指定
-
-通知を受け取った際に指定したセレクタが呼び出されます。
-
-### [3] 通知名
+### [2] 通知名
 
 指定の通知名の通知を受け取ることが可能。nil を設定するとすべてのオブジェクトから通知を受け取る。
 
-### [4] sender の指定
+### [3] sender の指定
 
 指定のオブジェクトからのみ通知を受けたいときに指定。nil を設定するとすべてのオブジェクトから通知を受け取る。
 
-## 2. 通知ハンドラーの実装
+### [4] 追加するQueueの指定
 
-通知ハンドラは Notification オブジェクトを受け取るようにします。
+ハンドラを実行するQueueの指定。nil を指定すると、postされたNotificationと同じスレッドで実行される。
 
-```swift
-func recieveNotification(_ notification: Notification) {
-    // do something
-}
-```
+### [5] ハンドラーの指定
 
-通知登録とハンドラの実装を closure を使ったパターンでまとめることもできます。
+Notificationを受け取った際の処理を指定。
 
-```swift
-NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "pushNotificationTapped"),
-                                        object: nil, queue: OperationQueue.main) { notification in
-    // do something
-}
-```
-
-## 3. NotificationCenter に通知を post
+## 2. NotificationCenter に通知を post
 
 通知を post する際に userInfo として任意のデータ(Dictionary)を指定することができます。通知の受取手は Notification の userInfo プロパティでこのデータにアクセスすることが可能です。
 
 ```swift
 let dict = ["key" : "value"]
-NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushNotificationTapped"), object: self, userInfo: dict)
+let name =  Notification.Name(rawValue: "pushNotificationTapped")
+NotificationCenter.default.post(name: name, object: nil, userInfo: dict)
 ```
 
-## 4. オブザーバ登録の解除
+## 3. オブザーバ登録の解除
+
+Notificationの監視が必要なくたった場合、監視登録を解除する必要があります。
 
 ```swift
-NotificationCenter.default.removeObserver(self)
+let observer: NSObjectProtocol = NotificationCenter.default.addObserver(...)
+
+NotificationCenter.default.removeObserver(observer)
 ```
 
 ## 問題
