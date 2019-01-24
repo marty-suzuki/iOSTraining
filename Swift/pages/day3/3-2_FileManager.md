@@ -21,7 +21,7 @@
 ## Document ディレクトリパス取得
 
 ```swift
-let urls = FileManager().urls(for: .documentDirectory, in: .userDomainMask)
+let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 print(urls.first)
 ```
 
@@ -38,34 +38,21 @@ URL ベースのパスが取得できます。シュミレータだと Mac の�
 ## データの保存
 
 ```swift
-let saveDict = [ "key1" : "value1", "key2" : "value2" ]
+let data: Data = ...
 let fileUrl: URL ...
 
-if NSKeyedArchiver.archiveRootObject(saveDict, toFile: fileUrl.path) {
-    print("success")
-} else {
-    print("failed")
-}
+FileManager.default.createFile(atPath: fileUrl.path, contents: data, attributes: nil)
 ```
 
 ## データの読み込み
 
 ```swift
 if FileManager.default.fileExists(atPath: fileUrl.path) { //[1] ファイルパスが存在するかどうかを確認
-    let readDict = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) //[2] 保存したファイルを dictionary として生成
-    print(readDict)
+    let data = FileManager.default.contents(atPath: fileUrl.path)
+    print(data)
 } else {
     print("not exist")
 }
-```
-
-console log
-
-```
-Optional({
-    key1 = value1;
-    key2 = value2;
-})
 ```
 
 ## ファイルの削除
@@ -79,6 +66,54 @@ do {
     try FileManager.default.removeItem(atPath: fileUrl.path)
 } catch {
     print("failed")
+}
+```
+
+## Codableを組み合わせて利用
+
+```swift
+struct SaveObject: Codable {
+    let value1: String
+    let value2: String
+}
+```
+
+### 保存
+
+```swift
+let fileURL: URL = ...
+let object = SaveObject(value1: "hoge", value2: "fuga")
+
+do {
+    let data = try JSONEncoder().encode(saveObject)
+    if FileManager.default.fileExists(atPath: fileURL.path) {
+        try FileManager.default.removeItem(at: fileURL)
+    }
+    FileManager.default.createFile(atPath: fileURL.path, contents: data, attributes: nil)
+    print("success")
+} catch let e {
+    print("failed \(e)")
+}
+```
+
+### 読み込み
+
+```swift
+let fileURL: URL = ...
+guard FileManager.default.fileExists(atPath: fileURL.path) else {
+    print("not exist")
+    return
+}
+
+guard let data = FileManager.default.contents(atPath: fileURL.path) else {
+    return
+}
+
+do {
+    let object = try JSONDecoder().decode(SaveObject.self, from: data)
+    print(object)
+} catch let e {
+    print("failed \(e)")
 }
 ```
 

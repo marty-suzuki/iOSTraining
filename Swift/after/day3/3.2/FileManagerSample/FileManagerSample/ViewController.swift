@@ -15,14 +15,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
-        
     }
 
     func fileURL() -> URL? {
@@ -32,7 +24,7 @@ class ViewController: UIViewController {
         // TODO: URLから絶対パスを取得
         guard let url = urls.first else { return nil }
         
-        // TODO: 保存するファイル（save.xml）をDocumentのパスに追加
+        // TODO: 保存するファイル（save.dat）をDocumentのパスに追加
         let newUrl = url.appendingPathComponent("save.dat")
         
         // TODO: ファイルパスを返す
@@ -40,16 +32,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        // TODO: textField1とtextField2の内容をDictionaryに変換して保存
+        // TODO: textField1とtextField2の内容をSaveObjectに変換して保存
         guard let fileUrl = fileURL() else { return }
-        let saveDict = [
-            "textField1" : "\(textField1.text ?? "")",
-            "textField2" : "\(textField2.text ?? "")"
-        ]
-        if NSKeyedArchiver.archiveRootObject(saveDict, toFile: fileUrl.path) {
+
+        let saveObject = SaveObject(textField1: textField1.text ?? "",
+                                    textField2: textField2.text ?? "")
+        do {
+            let data = try JSONEncoder().encode(saveObject)
+            if FileManager.default.fileExists(atPath: fileUrl.path) {
+                try FileManager.default.removeItem(at: fileUrl)
+            }
+            FileManager.default.createFile(atPath: fileUrl.path, contents: data, attributes: nil)
             print("success")
-        } else {
-            print("failed")
+        } catch let e {
+            print("failed \(e)")
         }
     }
     
@@ -59,9 +55,18 @@ class ViewController: UIViewController {
             print("not exist")
             return
         }
-        guard let readDict = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) as? [String : String] else { return }
-        textField1.text = readDict["textField1"]
-        textField2.text = readDict["textField2"]
+
+        guard let data = FileManager.default.contents(atPath: fileUrl.path) else {
+            return
+        }
+
+        do {
+            let saveObject = try JSONDecoder().decode(SaveObject.self, from: data)
+            textField1.text = saveObject.textField1
+            textField2.text = saveObject.textField2
+        } catch let e {
+            print("failed \(e)")
+        }
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
@@ -78,3 +83,7 @@ class ViewController: UIViewController {
     }
 }
 
+struct SaveObject: Codable {
+    let textField1: String
+    let textField2: String
+}
