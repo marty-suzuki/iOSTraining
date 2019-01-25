@@ -71,10 +71,12 @@ do {
 
 ## Codableを組み合わせて利用
 
+[4.1.1 Codableを利用したシリアライズとデシリアライズ](./4-1-1_Codable.md)で説明しているCodableを使うことで、オブジェクトをシリアライズ・デシリアライズして保存・読み込みを簡単に実現できるようになります。
+
 ```swift
-struct SaveObject: Codable {
-    let value1: String
-    let value2: String
+struct User: Codable {
+    let id: Int
+    let name: String
 }
 ```
 
@@ -82,13 +84,18 @@ struct SaveObject: Codable {
 
 ```swift
 let fileURL: URL = ...
-let object = SaveObject(value1: "hoge", value2: "fuga")
+let user = User(id: 1234, name: "Biff")
 
 do {
-    let data = try JSONEncoder().encode(saveObject)
+    // UserをData型に変換
+    let data = try JSONEncoder().encode(user)
+
+    // ファイルが存在したる場合は削除
     if FileManager.default.fileExists(atPath: fileURL.path) {
         try FileManager.default.removeItem(at: fileURL)
     }
+
+    // ファイルを保存
     FileManager.default.createFile(atPath: fileURL.path, contents: data, attributes: nil)
     print("success")
 } catch let e {
@@ -100,24 +107,30 @@ do {
 
 ```swift
 let fileURL: URL = ...
+
+// ファイルが存在するかの確認
 guard FileManager.default.fileExists(atPath: fileURL.path) else {
     print("not exist")
     return
 }
 
-guard let data = FileManager.default.contents(atPath: fileURL.path) else {
+// URLからデータを取得
+guard let data = FileManager.default.contents(atPath: fileURL.path).first else {
     return
 }
 
 do {
-    let object = try JSONDecoder().decode(SaveObject.self, from: data)
-    print(object)
+    // DataをUser型に変換
+    let user = try JSONDecoder().decode(User.self, from: data)
+    print(user.id) // 1234
+    print(user.name) // Biff
 } catch let e {
     print("failed \(e)")
 }
 ```
 
 ## 問題
+
 下図の画面を作成して、以下の仕様を満たすプログラムを作成してください。
 
 - save ボタンを押すと textField のテキストが保存される。
