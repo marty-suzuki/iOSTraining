@@ -47,7 +47,7 @@ allowEditing
 ```swift
 @IBAction func cameraButtonTapped(_ sender: UIButton) {
     let imagePickerVC = UIImagePickerController()
-    // UIImagePickerControllerSourceType.savedPhotosAlbum だと直接写真選択画面
+    // UIImagePickerController.SourceType.savedPhotosAlbum だと直接写真選択画面
     imagePickerVC.sourceType = .photoLibrary
     // 選択したメディアの編集を可能にするかどうか
     imagePickerVC.allowsEditing = true
@@ -65,17 +65,17 @@ UIImagePickerController の mediaType は public.image で写真のみの選択�
 ## delegate の実装
 
 ```swift
-func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
 ```
 
 を実装して、写真選択完了のイベントを取得しましょう。
 
 ```swift
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
 
-        imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        imageView.image = info[.originalImage] as? UIImage
     }
 }
 ```
