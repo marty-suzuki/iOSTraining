@@ -178,8 +178,7 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 2. 通信
 
     - 課題 [4.2 HTTPリクエストの基礎](./Swift/pages/day3/4-2_HTTP-request-basic.md)  
-    - 参考 [App Transport Security](http://developer.hatenastaff.com/entry/2016/06/16/165924)  
-    - 参考 [AlamofireとSwiftyJSONでAPIを叩くチュートリアル](http://qiita.com/yutat93/items/1b6dfe34fa8537cf3329)  
+    - 参考 [App Transport Security](http://developer.hatenastaff.com/entry/2016/06/16/165924)
     - プロジェクト [day3/4.2](./Swift/before/day3/4.2)
 
 3. ウェブビュー
