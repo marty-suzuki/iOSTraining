@@ -188,7 +188,7 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 ### 宿題
 
-- 課題 [4.3 WKWebView](./Swift/pages/day3/4-3_WKWebView.md)  
+- 宿題 [Homework 取得したオブジェクトのURLをWebviewで表示する](./Swift/pages/day3/homework.md)  
 - プロジェクト [day3/homework](./Swift/before/day3/homework)
 
 ## 4日目
