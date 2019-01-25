@@ -5,4 +5,4 @@
 - User.websiteURLがnilでない場合は`Open Website URL`ボタンを有効にしてください
 - `Open Website URL`ボタンをタップしたら、UserのwebsiteをWebviewで表示するようにしてください
 
-![](./Images/homework/day3_homework.png)
+![image](./images/homework/day3_homework.png)
