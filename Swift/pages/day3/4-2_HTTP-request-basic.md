@@ -149,8 +149,8 @@ let request = URLRequest(url: url)
 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
     guard let data = data else { return }
     do {
-        let object = try JSONSerialization.jsonObject(with: data, options: [])
-        print(object)
+        let user = try JSONDecoder().decode([Item].self, from: data)
+        print(user)
     } catch let e {
         print(e)
     }
@@ -166,17 +166,20 @@ task.resume()
 
 ## 通信結果の処理
 
-URLSessionを用いて通信を行った後は、そのデータを処理しましょう。[JSONのシリアライズとデシリアライズ](./4-1_JSON.md)の説明をもとに、dataをオブジェクトに変換します。
+URLSessionを用いて通信を行った後は、そのデータを処理しましょう。[Codableを利用したシリアライズとデシリアライズ](./4-1-1_Codable.md)の説明をもとに、dataをオブジェクトに変換します。
 
 ```swift
+struct User: Codable {
+   ...
+}
+
 do {
-    let object = try JSONSerialization.jsonObject(with: data, options: [])
-    print(object)
+    let user = try JSONDecoder().decode(User.self, from: data)
+    print(user)
 } catch let e {
     print(e)
 }
 ```
-optionsはそれぞれ適切ものを入れてください。
 
 #### URLResponseとError
 

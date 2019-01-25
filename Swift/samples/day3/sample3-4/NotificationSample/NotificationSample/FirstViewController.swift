@@ -10,19 +10,22 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    static func makeWithTabBarItem() -> FirstViewController {
+        let viewController = FirstViewController()
+        viewController.tabBarItem = UITabBarItem(title: "First", image: UIImage(named: "first"), tag: 0)
+        return viewController
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     @IBAction func pushNotificationTapped(_ sender: UIButton) {
         let dict = ["key" : "value"]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushNotificationTapped"), object: self, userInfo: dict)
+        NotificationCenter.default
+            .post(name: Notification.Name(rawValue: "pushNotificationTapped"),
+                  object: nil,
+                  userInfo: dict)
     }
 }
 

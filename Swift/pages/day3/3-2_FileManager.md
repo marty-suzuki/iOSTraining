@@ -21,7 +21,7 @@
 ## Document ディレクトリパス取得
 
 ```swift
-let urls = FileManager().urls(for: .documentDirectory, in: .userDomainMask)
+let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 print(urls.first)
 ```
 
@@ -38,34 +38,21 @@ URL ベースのパスが取得できます。シュミレータだと Mac の�
 ## データの保存
 
 ```swift
-let saveDict = [ "key1" : "value1", "key2" : "value2" ]
+let data: Data = ...
 let fileUrl: URL ...
 
-if NSKeyedArchiver.archiveRootObject(saveDict, toFile: fileUrl.path) {
-    print("success")
-} else {
-    print("failed")
-}
+FileManager.default.createFile(atPath: fileUrl.path, contents: data, attributes: nil)
 ```
 
 ## データの読み込み
 
 ```swift
 if FileManager.default.fileExists(atPath: fileUrl.path) { //[1] ファイルパスが存在するかどうかを確認
-    let readDict = NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) //[2] 保存したファイルを dictionary として生成
-    print(readDict)
+    let data = FileManager.default.contents(atPath: fileUrl.path)
+    print(data)
 } else {
     print("not exist")
 }
-```
-
-console log
-
-```
-Optional({
-    key1 = value1;
-    key2 = value2;
-})
 ```
 
 ## ファイルの削除
@@ -82,7 +69,68 @@ do {
 }
 ```
 
+## Codableを組み合わせて利用
+
+[4.1.1 Codableを利用したシリアライズとデシリアライズ](./4-1-1_Codable.md)で説明しているCodableを使うことで、オブジェクトをシリアライズ・デシリアライズして保存・読み込みを簡単に実現できるようになります。
+
+```swift
+struct User: Codable {
+    let id: Int
+    let name: String
+}
+```
+
+### 保存
+
+```swift
+let fileURL: URL = ...
+let user = User(id: 1234, name: "Biff")
+
+do {
+    // UserをData型に変換
+    let data = try JSONEncoder().encode(user)
+
+    // ファイルが存在したる場合は削除
+    if FileManager.default.fileExists(atPath: fileURL.path) {
+        try FileManager.default.removeItem(at: fileURL)
+    }
+
+    // ファイルを保存
+    FileManager.default.createFile(atPath: fileURL.path, contents: data, attributes: nil)
+    print("success")
+} catch let e {
+    print("failed \(e)")
+}
+```
+
+### 読み込み
+
+```swift
+let fileURL: URL = ...
+
+// ファイルが存在するかの確認
+guard FileManager.default.fileExists(atPath: fileURL.path) else {
+    print("not exist")
+    return
+}
+
+// URLからデータを取得
+guard let data = FileManager.default.contents(atPath: fileURL.path).first else {
+    return
+}
+
+do {
+    // DataをUser型に変換
+    let user = try JSONDecoder().decode(User.self, from: data)
+    print(user.id) // 1234
+    print(user.name) // Biff
+} catch let e {
+    print("failed \(e)")
+}
+```
+
 ## 問題
+
 下図の画面を作成して、以下の仕様を満たすプログラムを作成してください。
 
 - save ボタンを押すと textField のテキストが保存される。

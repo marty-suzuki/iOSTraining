@@ -15,12 +15,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func fileURL() -> URL? {
@@ -28,15 +22,14 @@ class ViewController: UIViewController {
         
         // TODO: URLから絶対パスを取得
         
-        // TODO: 保存するファイル（save.xml）をDocumentのパスに追加
+        // TODO: 保存するファイル（save.dat）をDocumentのパスに追加
         
         // TODO: ファイルパスを返す
-        
         return nil
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        // TODO: textField1とtextField2の内容をDictionaryに変換して保存
+        // TODO: textField1とtextField2の内容をSaveObjectに変換して保存
     }
     
     @IBAction func readButtonTapped(_ sender: UIButton) {
@@ -48,3 +41,7 @@ class ViewController: UIViewController {
     }
 }
 
+struct SaveObject: Codable {
+    let textField1: String
+    let textField2: String
+}
