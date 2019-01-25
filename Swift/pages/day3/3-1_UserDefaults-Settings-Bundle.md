@@ -32,6 +32,51 @@ console
 
 UserDefaults で保存した場合アプリ内の plist ファイルで保存されます。このファイルは特定のアプリケーションを使うと一般ユーザでも見ることが出来てしまいます。従ってパスワードや access token などの情報はこのファイルに保存しないようにしてください。
 
+### Codableを組み合わせて利用
+
+
+[4.1.1 Codableを利用したシリアライズとデシリアライズ](./4-1-1_Codable.md)で説明しているCodableを使うことで、オブジェクトの保存・読み込みを簡単に実現できるようになります
+
+```swift
+struct User: Codable {
+    let id: Int
+    let name: String
+}
+```
+
+#### 保存
+
+```swift
+let user = User(id: 1234, name: "Biff")
+
+do {
+    // UserをData型に変換
+    let data = try JSONEncoder().encode(user)
+
+    // UserDefaultsに'user'というキー名で保存
+    UserDefaults.standard.set(data, forKey: "user")
+} catch let e {
+    print(e)
+}
+```
+
+#### 読み込み
+
+```swift
+do {
+    // UserDefaultsから'user'というキー名で保存されているオブジェクとを取得
+    if let data = UserDefaults.standard.object(forKey: "user") as? Data {
+
+        // Data型をUserに変換
+        let user = try JSONDecoder().decode(User.self, from: data)
+        print(user.id) // 1234
+        print(user.name) // Biff
+    }
+} catch let e {
+    print(e)
+}
+```
+
 ## Settings Bundle
 
 iPhone の setting app 内に開発中のアプリの設定項目を追加することが出来ます。
