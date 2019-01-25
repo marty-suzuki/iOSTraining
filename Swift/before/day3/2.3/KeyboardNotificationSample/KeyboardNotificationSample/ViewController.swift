@@ -18,18 +18,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         // TODO: 右ボタンを作成
-        
-        NotificationCenter.default.addObserver(self,
-                                     selector: #selector(ViewController.keyboardWillShow(_:)),
-                                         name: NSNotification.Name.UIKeyboardWillShow,
-                                       object: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "keyboard hide",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(ViewController.rightButtonTapped(_:)))
+
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification,
+                                               object: nil,
+                                               queue: .main,
+                                               using: { [weak self] in self?.keyboardWillShow($0) })
         
         // TODO: キーボードが隠れる際の通知を登録
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     //MARK: - KeyboardNotification
