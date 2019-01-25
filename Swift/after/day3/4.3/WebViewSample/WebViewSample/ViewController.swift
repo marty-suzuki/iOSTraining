@@ -23,6 +23,15 @@ class ViewController: UIViewController {
     lazy var relaodButton: UIBarButtonItem = {
         return UIBarButtonItem(title: "Relaod", style: .plain, target: self, action: #selector(ViewController.reloadButtonTapped(_:)))
     }()
+
+    private var observations: [NSKeyValueObservation] = []
+
+    deinit {
+        observations.forEach {
+            $0.invalidate()
+        }
+        observations.removeAll()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,48 +57,48 @@ class ViewController: UIViewController {
         backButton.isEnabled = false
         forwardButton.isEnabled = false
         toolbarItems = [backButton, forwardButton, relaodButton]
-        
+
         // TODO: KVOでwebView.canGoBack, webView.canGoForwardを監視
-        [
-            #keyPath(WKWebView.canGoBack),
-            #keyPath(WKWebView.canGoForward),
-            #keyPath(WKWebView.title)
-        ].forEach { keyPath in
-            webView.addObserver(self, forKeyPath: keyPath, options: [.new, .old], context: nil)
+        let observation1 = webView.observe(\.canGoBack, options: [.new]) { [weak self] _, change in
+            guard let newValue = change.newValue else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.backButton.isEnabled = newValue
+            }
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        switch (keyPath, change?[.newKey], change?[.oldKey]) {
-        case ((#keyPath(WKWebView.canGoBack))?, let newVal as Bool, let oldVal as Bool) where newVal != oldVal:
-            backButton.isEnabled =  newVal
-            
-        case ((#keyPath(WKWebView.canGoForward))?, let newVal as Bool, let oldVal as Bool) where newVal != oldVal:
-            forwardButton.isEnabled =  newVal
-            
-        case ((#keyPath(WKWebView.title))?, let newVal as String, let oldVal as String) where newVal != oldVal:
-            title = newVal
-            
-        default:
-            break
+
+        let observation2 = webView.observe(\.canGoForward, options: [.new]) { [weak self] _, change in
+            guard let newValue = change.newValue else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.forwardButton.isEnabled = newValue
+            }
         }
+
+        let observation3 = webView.observe(\.title, options: [.new]) { [weak self] _, change in
+            guard let newValue = change.newValue else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.title = newValue
+            }
+        }
+
+        observations = [observation1, observation2, observation3]
     }
     
     // TODO: toolbarのボタンが押された時の処理
-    func backButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func backButtonTapped(_ sender: UIBarButtonItem) {
         webView.goBack()
     }
     
-    func forwardButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func forwardButtonTapped(_ sender: UIBarButtonItem) {
         webView.goForward()
     }
     
-    func reloadButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func reloadButtonTapped(_ sender: UIBarButtonItem) {
         webView.reload()
     }
 }

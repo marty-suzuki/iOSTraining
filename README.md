@@ -185,7 +185,7 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 3. ウェブビュー
 
     - 課題 [4.3 WKWebView](./Swift/pages/day3/4-3_WKWebView.md)  
-    - プロジェクト [day3/homework](./Swift/before/day3/homework)
+    - プロジェクト [day3/4.3](./Swift/before/day3/4.3)
 
 ### 宿題
 
