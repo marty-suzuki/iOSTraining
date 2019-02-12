@@ -27,8 +27,8 @@ Carthageのリポジトリは下記になります。詳細はこちらをご覧
 ```
 # Cartfile
 
-# Elegant HTTP Networking in Swift
-github "Alamofire/Alamofire"
+# Type-safe networking in Swift
+github "ishkawa/APIKit"
 ```
 
 - 利用するライブラリを指定するには
@@ -42,42 +42,42 @@ github 'ユーザー名/リポジトリ名' バージョンを指定
 任意のバージョン以降を指定したい場合は
 
 ```
-# 3.3.0以降
-github “Alamofire/Alamofire” >= 3.3.0
+# 3.1.0以降
+github "ishkawa/APIKit" >= 3.1.0
 ```
 
 任意のバージョン以降かつメジャーバージョンが同じものを指定したい場合は
 
 ```
 # 3.x
-github “Alamofire/Alamofire” ~> 3.0 # (3.0以降、3.0未満)
+github "ishkawa/APIKit" ~> 3.0 # (3.0以降、3.0未満)
 ```
 
 任意の固定でバージョンを指定したい場合は
 
 ```
 # 4.0.0
-github “Alamofire/Alamofire” == 4.0.0
+github "ishkawa/APIKit" == 4.0.0
 ```
 
 ブランチを指定したい場合は
 
 ```
 # ブランチを指定
-github “Alamofire/Alamofire” “branch”
+github "ishkawa/APIKit" "branch"
 ```
 
 URLでリポジトリを指定したい場合は
 
 ```
-github “https://github.com/Alamofire/Alamofire”
+github "https://github.com/ishkawa/APIKit"
 ```
 
 ローカルプロジェクトを使用したい場合は
 
 ```
 # ローカルプロジェクトを使用
-git “file:///directory/to/project” “branch”
+git "file:///directory/to/project" "branch"
 ```
 
 と書くことが出来ます。
