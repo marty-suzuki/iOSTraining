@@ -11,8 +11,28 @@ import UIKit
 class ViewController: UIViewController, KeyboardObservable {
     
     @IBOutlet weak var textField: UITextField!
+
+    var keyboardWillShow: (Notification) -> Void = { _ in
+        //キーボードが表示される前の処理
+        print(#function)
+    }
+
+    var keyboardDidShow: (Notification) -> Void = { _ in
+        //キーボードが表示された後の処理
+        print(#function)
+    }
+
+    var keyboardWillHide: (Notification) -> Void = { _ in
+        //キーボードが非表示にされる前の処理
+        print(#function)
+    }
+
+    var keyboardDidHide: (Notification) -> Void = { _ in
+        //キーボードが非表示にされた後の処理
+        print(#function)
+    }
     
-    var keyboardObservers: [Any] = []
+    var keyboardObservers: [NSObjectProtocol] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,26 +52,6 @@ class ViewController: UIViewController, KeyboardObservable {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func keyboardWillShow(_ notification: Notification) {
-        //キーボードが表示される前の処理
-        print(#function)
-    }
-    
-    func keyboardDidShow(_ notification: Notification) {
-        //キーボードが表示された後の処理
-        print(#function)
-    }
-    
-    func keyboardWillHide(_ notification: Notification) {
-        //キーボードが非表示にされる前の処理
-        print(#function)
-    }
-    
-    func keyboardDidHide(_ notification: Notification) {
-        //キーボードが非表示にされた後の処理
-        print(#function)
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {

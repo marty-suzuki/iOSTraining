@@ -87,11 +87,11 @@ class Flyingfish: Fish, Swimmable, Flyable {
 }
 
 //MARK: - Generics Sample
-func swimmableAnimal<T: Animal>(_ animal: T) where T: Swimmable {
+func swimmableAnimal<T: Animal & Swimmable>(_ animal: T) {
     animal.swim()
 }
 
-func swimmableFish<T: Fish>(_ fish: T) where T: Swimmable {
+func swimmableFish<T: Fish & Swimmable>(_ fish: T) {
     fish.swim()
 }
 

@@ -6,26 +6,31 @@
 //  Copyright © 2016年 marty-suzuki. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol KeyboardObservable: class {
-    var keyboardObservers: [Any] { get set }
-    func keyboardWillShow(_ notification: Notification)
-    func keyboardDidShow(_ notification: Notification)
-    func keyboardWillHide(_ notification: Notification)
-    func keyboardDidHide(_ notification: Notification)
+    var keyboardObservers: [NSObjectProtocol] { get set }
+    var keyboardWillShow: (Notification) -> Void { get }
+    var keyboardDidShow: (Notification) -> Void { get }
+    var keyboardWillHide: (Notification) -> Void { get }
+    var keyboardDidHide: (Notification) -> Void { get }
     func addKeyboardObservers()
     func removeKeyboardObservers()
 }
 
-extension KeyboardObservable {
+extension KeyboardObservable where Self: NSObject {
     func addKeyboardObservers() {
         keyboardObservers = [
-            (.UIKeyboardWillShow, keyboardWillShow(_:)),
-            (.UIKeyboardDidShow, keyboardDidShow(_:)),
-            (.UIKeyboardWillHide, keyboardWillHide(_:)),
-            (.UIKeyboardDidHide, keyboardDidHide(_:))
-            ].map { NotificationCenter.default.addObserver(forName: $0, object: nil, queue: .main, using: $1) }
+            (UIResponder.keyboardWillShowNotification, keyboardWillShow),
+            (UIResponder.keyboardDidShowNotification, keyboardDidShow),
+            (UIResponder.keyboardWillHideNotification, keyboardWillHide),
+            (UIResponder.keyboardDidHideNotification, keyboardDidHide)
+        ].map {
+            NotificationCenter.default.addObserver(forName: $0.0,
+                                                   object: nil,
+                                                   queue: .main,
+                                                   using: $0.1)
+        }
     }
     
     func removeKeyboardObservers() {

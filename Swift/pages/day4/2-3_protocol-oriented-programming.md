@@ -200,23 +200,28 @@ structは継承を行うことはできませんが、protocolの採用をする
 
 ```swift
 protocol KeyboardObservable: class {
-    var keyboardObservers: [Any] { get set }
-    func keyboardWillShow(_ notification: Notification)
-    func keyboardDidShow(_ notification: Notification)
-    func keyboardWillHide(_ notification: Notification)
-    func keyboardDidHide(_ notification: Notification)
+    var keyboardObservers: [NSObjectProtocol] { get set }
+    var keyboardWillShow: (Notification) -> Void { get }
+    var keyboardDidShow: (Notification) -> Void { get }
+    var keyboardWillHide: (Notification) -> Void { get }
+    var keyboardDidHide: (Notification) -> Void { get }
     func addKeyboardObservers()
     func removeKeyboardObservers()
 }
 
-extension KeyboardObservable {
+extension KeyboardObservable where Self: NSObject {
     func addKeyboardObservers() {
         keyboardObservers = [
-            (.UIKeyboardWillShow, keyboardWillShow(_:)),
-            (.UIKeyboardDidShow, keyboardDidShow(_:)),
-            (.UIKeyboardWillHide, keyboardWillHide(_:)),
-            (.UIKeyboardDidHide, keyboardDidHide(_:))
-        ].map { NotificationCenter.default.addObserver(forName: $0, object: nil, queue: .main, using: $1) }
+            (UIResponder.keyboardWillShowNotification, keyboardWillShow),
+            (UIResponder.keyboardDidShowNotification, keyboardDidShow),
+            (UIResponder.keyboardWillHideNotification, keyboardWillHide),
+            (UIResponder.keyboardDidHideNotification, keyboardDidHide)
+        ].map {
+            NotificationCenter.default.addObserver(forName: $0.0,
+                                                   object: nil,
+                                                   queue: .main,
+                                                   using: $0.1)
+        }
     }
 
     func removeKeyboardObservers() {
@@ -231,7 +236,27 @@ extension KeyboardObservable {
 ```Swift
 class ViewController: UIViewController, KeyboardObservable {
 
-    var keyboardObservers: [Any] = []
+    var keyboardWillShow: (Notification) -> Void = { _ in
+        //キーボードが表示される前の処理
+        print(#function)
+    }
+
+    var keyboardDidShow: (Notification) -> Void = { _ in
+        //キーボードが表示された後の処理
+        print(#function)
+    }
+
+    var keyboardWillHide: (Notification) -> Void = { _ in
+        //キーボードが非表示にされる前の処理
+        print(#function)
+    }
+
+    var keyboardDidHide: (Notification) -> Void = { _ in
+        //キーボードが非表示にされた後の処理
+        print(#function)
+    }
+
+    var keyboardObservers: [NSObjectProtocol] = []
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -241,22 +266,6 @@ class ViewController: UIViewController, KeyboardObservable {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         removeKeyboardObservers()
-    }
-
-    func keyboardWillShow(_ notification: Notification) {
-        //キーボードが表示される前の処理
-    }
-
-    func keyboardDidShow(_ notification: Notification) {
-        //キーボードが表示された後の処理
-    }
-
-    func keyboardWillHide(_ notification: Notification) {
-        //キーボードが非表示にされる前の処理
-    }
-
-    func keyboardDidHide(_ notification: Notification) {
-        //キーボードが非表示にされた後の処理
     }
 }
 ```
