@@ -16,7 +16,9 @@ protocol DailyChoiceViewDelegate: DailyViewDelegate {
 class DailyChoiceView: DailyView {
 
     class func view() -> DailyChoiceView {
-        return Bundle.main.loadNibNamed("DailyChoiceView", owner: nil, options: nil)?.last as! DailyChoiceView
+        return UINib(nibName: "DailyChoiceView", bundle: nil)
+            .instantiate(withOwner: nil, options: nil)
+            .first as! DailyChoiceView
     }
     
     @IBAction func yesButtonTapped(_ sender: UIButton) {

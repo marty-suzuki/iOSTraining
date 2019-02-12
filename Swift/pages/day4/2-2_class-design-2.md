@@ -65,7 +65,9 @@ protocol DailyChoiceViewDelegate: DailyViewDelegate {
 class DailyChoiceView: DailyView {
 
     class func view() -> DailyChoiceView {
-        return Bundle.main.loadNibNamed("DailyChoiceView", owner: nil, options: nil)?.last as! DailyChoiceView
+        return UINib(nibName: "DailyChoiceView", bundle: nil)
+            .instantiate(withOwner: nil, options: nil)
+            .first as! DailyChoiceView
     }
 
     @IBAction func yesButtonTapped(_ sender: UIButton) {
@@ -90,29 +92,26 @@ ViewController.swift
 ```swift
 class ViewController: UIViewController {
 
-    var dailyView: DailyView?
+    let dailyView = DailyChoiceView.view()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
-        let dailyChoiceView = DailyChoiceView.view()
-        dailyChoiceView.delegate = self
-        dailyChoiceView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dailyChoiceView)
+        dailyView.delegate = self
+        dailyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dailyView)
         view.addConstraints([
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: dailyChoiceView.bounds.size.height),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: dailyChoiceView.bounds.size.width)
+            dailyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dailyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            dailyView.heightAnchor.constraint(equalToConstant: dailyView.bounds.size.height),
+            dailyView.widthAnchor.constraint(equalToConstant: dailyView.bounds.size.width)
         ])
-        dailyView = dailyChoiceView
     }
 }
 
 extension ViewController: DailyViewDelegate {
     func dailyView(view: DailyView, didTapClose button: UIButton) {
-        dailyView?.removeFromSuperview()
+        dailyView.removeFromSuperview()
     }
 }
 

@@ -10,40 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var dailyView: DailyView?
+    let dailyView = DailyChoiceView.view()
     
     var sharedObjects: [SharedObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        let dailyChoiceView = DailyChoiceView.view()
-        dailyChoiceView.delegate = self
-        dailyChoiceView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dailyChoiceView)
+
+        dailyView.delegate = self
+        dailyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dailyView)
         view.addConstraints([
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: dailyChoiceView.bounds.size.height),
-            NSLayoutConstraint(item: dailyChoiceView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: dailyChoiceView.bounds.size.width)
+            dailyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dailyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            dailyView.heightAnchor.constraint(equalToConstant: dailyView.bounds.size.height),
+            dailyView.widthAnchor.constraint(equalToConstant: dailyView.bounds.size.width)
         ])
-        dailyView = dailyChoiceView
         
         sharedObjects = (0..<10).map { _ in
             SharedObject.shared
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 extension ViewController: DailyViewDelegate {
     func dailyView(view: DailyView, didTapClose button: UIButton) {
-        dailyView?.removeFromSuperview()
+        dailyView.removeFromSuperview()
     }
 }
 
