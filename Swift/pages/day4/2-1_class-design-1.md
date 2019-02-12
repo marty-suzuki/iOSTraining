@@ -72,67 +72,51 @@ Model オブジェクトはレスポンスで取得したこの JSON をその�
 GithubModel.swift
 
 ```swift
-protocol GithubModel {
-    init?(dict: [AnyHashable : Any])
-}
-
-struct GithubRepository: GithubModel {
+struct GithubRepository: Decodable {
     let name: String
     let owner: GithubUser
     let `description`: String
     let stargazersCount: Int
     let forksCount: Int
     let watchersCount: Int
-    let createdAt: Date
-    let updatedAt: Date
+    let createdAt: String
+    let updatedAt: String
 
-    init?(dict: [AnyHashable : Any]) {
-        guard
-            let name = dict["name"] as? String,
-            let rawOwner = dict["owner"] as? [AnyHashable : Any],
-            let owner = GithubUser(dict: rawOwner),
-            let description = dict["`description`"] as? String,
-            let stargazersCount = dict["stargazers_count"] as? Int,
-            let forksCount = dict["forks_count"] as? Int,
-            let watchersCount = dict["watchers_count"] as? Int,
-            let rawCreatedAt = dict["created_at"] as? String,
-            let rawUpdatedAt = dict["updated_at"] as? String
-        else { return nil }
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case owner
+        case `description` = "description"
+        case stargazersCount = "stargazers_count"
+        case forksCount = "forks_count"
+        case watchersCount = "watchers_count"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
 
+    private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
+        return dateFormatter
+    }()
 
-        guard
-            let createdAt = dateFormatter.date(from: rawCreatedAt),
-            let updatedAt = dateFormatter.date(from: rawUpdatedAt)
-        else { return nil }
+    var createdAtDate: Date? {
+        return dateFormatter.date(from: createdAt)
+    }  
 
-        self.name = name
-        self.owner = owner
-        self.description = description
-        self.stargazersCount = stargazersCount
-        self.forksCount = forksCount
-        self.watchersCount = watchersCount
-        self.createdAt = createdAt
-        self.updatedAt = updatedAt
+    var updatedAtDate: Date? {
+        return dateFormatter.date(from: updatedAt)
     }
 }
 
-struct GithubUser: GithubModel {
-    let avatarUrl: URL
+struct GithubUser: Decodable {
+    let avatarURL: URL
     let login: String
 
-    init?(dict: [AnyHashable : Any]) {
-        guard
-            let rawAvatorUrl = dict["avatar_url"] as? String,
-            let avatarUrl = URL(string: rawAvatorUrl),
-            let login = dict["login"] as? String
-        else { return nil }
-
-        self.avatarUrl = avatarUrl
-        self.login = login
+    private enum CodingKeys: String, CodingKey {
+        case avatarURL = "avatar_url"
+        case login
     }
 }
 ```
