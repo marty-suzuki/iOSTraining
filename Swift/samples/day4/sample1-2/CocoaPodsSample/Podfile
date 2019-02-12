@@ -7,6 +7,5 @@ target 'CocoaPodsSample' do
 
   # Pods for CocoaPodsSample
   pod 'Reachability' # Objective-C
-  pod 'Alamofire'    # Swift
-  pod 'SwiftyJSON'
+  pod 'APIKit'
 end
