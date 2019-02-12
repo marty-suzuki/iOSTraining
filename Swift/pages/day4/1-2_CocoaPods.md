@@ -39,7 +39,7 @@ target 'CocoaPodsSample' do
 
   # Pods for CocoaPodsSample
   pod 'Reachability'
-  pod 'Alamofire'
+  pod 'APIKit'
 end
 ```
 
@@ -65,14 +65,14 @@ pod 'MyLibrary', :local => 'path/to/libary'
   - gitで管理されているライブラリを利用する場合
 
 ```
-pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
+pod 'APIKit', :git => 'https://github.com/ishkawa/APIKit.git'
 ```
 
 のように指定します。
   - podspecが記述されている場合
 
 ```
-pod 'Alamofire', :podspec => 'https://raw.githubusercontent.com/Alamofire/Alamofire/master/Alamofire.podspec'
+pod 'APIKit', :podspec => 'https://github.com/ishkawa/APIKit/blob/master/APIKit.podspec'
 ```
 
 と書くことが出来ます。
@@ -94,7 +94,7 @@ pod install
 あとはソースコード内で
 
 ```
-import Alamofire
+import APIKit
 ```
 
 とすれば利用できるようになります。
@@ -166,50 +166,55 @@ self.view.addLayoutSubview(view, andConstraints:
 
 となります。
 
-#### SwiftyJSON
+#### APIKit
 
-SwiftyJSONはDictionaryやArrayのElementを取り出したあとの煩わしいcastを軽減するライブラリです。
+APIKitはHTTPのリクエストに対してレスポンスの型が紐付けて、取得したオブジェクトをタイプセーフに扱えるライブラリです。
 
 ```
-pod 'SwiftyJSON'
+pod 'APIKit'
 ```
 
 でインストールできます。
 
-例えば、サーバーから取得したJsonをパースして使おうとしたときに
-
 ```swift
-if let JSONObject = try JSONSerialization.jsonObject(with: data,, options: .allowFragments) as? [[String: AnyObject]],
-    let username = (JSONObject[0]["user"] as? [String: AnyObject])?["name"] as? String {
-        // There's our username
+struct SearchRepositoriesRequest: Request {
+    typealias Response = [Repository]
+
+    ...
 }
 ```
 
-のようにoptional chainingのキャストになってしまいますが、SwiftyJSONを使うと
+SearchRepositoriesRequest内で[Repository]がresponseとして紐付いています。
+例えば、サーバーからリクエストを送信しレスポンスを受け取った場合、
 
 ```swift
-let json = JSON(data: dataFromNetworking)
-if let userName = json[0]["user"]["name"].string {
-  //Now you got your value
+let request = SearchRepositoriesRequest(query: "swift")
+
+Session.send(request) { result in
+    switch result {
+    case .success(let response):
+        responseの型は[Repository]になっているので、取得後のキャストなどは不要です
+        print(response)
+
+    case .failure(let error):
+        self.printError(error)
+    }
 }
 ```
 
-このように、コードをわかりやすくすることができます。
+このように、タイプセーフにすることができます。
 
 #### その他
 
 その他に、いくつか有用そうなフレームワークを名前だけですが紹介します。
-- Alamofire
-  - iOS, OSX用のネットワークライブラリです。HTTPリクエストに加えて、キャッシュ機構やストリーミング、JSONやplistに対応した通信などを行います
-  - [https://github.com/Alamofire/Alamofire](https://github.com/Alamofire/Alamofire)
 
 - Kingfisher
-  - 非同期かつキャッシュを行う画像通信用のライブラリ。
-  - URLを指定すると、キャッシュに含まれている場合はキャッシュから、ない場合はURLに問い合わせます
+  - 非同期かつキャッシュを行う画像通信用のライブラリ
+  - URLを指定すると、キャッシュに含まれている場合はキャッシュから、ない場合はURLに問い合わせる
   - [https://github.com/onevcat/Kingfisher](https://github.com/onevcat/Kingfisher)
 
 - テストフレームワークなど
-  - テストフレームワークやテスト用のライブラリもCocoa Pods 経由で入れることができます
+  - テストフレームワークやテスト用のライブラリもCocoa Pods 経由で入れることができる
   - テストについては、次の11回で紹介します
 
 もっと見たい！と言う方は以下からCocoaPods/Specsに登録されているライブラリを確認することができます。
