@@ -15,8 +15,11 @@
 ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
+    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification,
+                                              object: nil,
+                                              queue: .main,
+                                              using: { [weak self] in self?.keyboardWillShow($0) })
 }
 
 func keyboardWillShow(_ notification: NSNotification) {
@@ -28,14 +31,13 @@ console
 
 ```
 [
-    AnyHashable("UIKeyboardCenterBeginUserInfoKey"): NSPoint: {187.5, 796},
+    AnyHashable("UIKeyboardFrameEndUserInfoKey"): NSRect: {{0, 550}, {414, 346}},
+    AnyHashable("UIKeyboardCenterBeginUserInfoKey"): NSPoint: {207, 1069},
+    AnyHashable("UIKeyboardAnimationDurationUserInfoKey"): 0.25,
+    AnyHashable("UIKeyboardFrameBeginUserInfoKey"): NSRect: {{0, 896}, {414, 346}}, AnyHashable("UIKeyboardCenterEndUserInfoKey"): NSPoint: {207, 723},
     AnyHashable("UIKeyboardIsLocalUserInfoKey"): 1,
-    AnyHashable("UIKeyboardCenterEndUserInfoKey"): NSPoint: {187.5, 538},
-    AnyHashable("UIKeyboardBoundsUserInfoKey"): NSRect: {{0, 0}, {375, 258}},
-    AnyHashable("UIKeyboardFrameEndUserInfoKey"): NSRect: {{0, 409}, {375, 258}},
     AnyHashable("UIKeyboardAnimationCurveUserInfoKey"): 7,
-    AnyHashable("UIKeyboardFrameBeginUserInfoKey"): NSRect: {{0, 667}, {375, 258}},
-    AnyHashable("UIKeyboardAnimationDurationUserInfoKey"): 0.25
+    AnyHashable("UIKeyboardBoundsUserInfoKey"): NSRect: {{0, 0}, {414, 346}}
 ]
 ```
 

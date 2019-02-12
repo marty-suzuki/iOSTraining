@@ -18,18 +18,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         textField.delegate = self
         textView.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.didChangeTextFieldText(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.didChangeTextViewText(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification,
+                                               object: nil,
+                                               queue: .main,
+                                               using: { [weak self] in self?.didChangeTextFieldText($0) })
+
+        print(UITextField.textDidChangeNotification.rawValue)
+        print(UITextView.textDidChangeNotification.rawValue)
+
+        NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification,
+                                               object: nil,
+                                               queue: .main,
+                                               using: { [weak self] in self?.didChangeTextViewText($0) })
     }
 
     func didChangeTextFieldText(_ notification: Notification) {
@@ -37,7 +41,7 @@ class ViewController: UIViewController {
     }
     
     func didChangeTextViewText(_ notification: Notification) {
-        textFieldCountLabel.text = "\(textView.text?.characters.count ?? 0)"
+        textViewCountLabel.text = "\(textView.text?.characters.count ?? 0)"
     }
 }
 

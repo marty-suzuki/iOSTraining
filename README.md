@@ -175,23 +175,23 @@ SwiftでのiOSアプリ開発の基礎知識と実務スキルを身に付ける
 
 1. JSON
 
-    - 課題 [4.1 JSONのシリアライズとデシリアライズ](./Swift/pages/day3/4-1_JSON.md)  
+    - 課題 [4.1.1 Codableを利用したシリアライズとデシリアライズ](./Swift/pages/day3/4-1-1_Codable.md)
+    - 課題 [4.1.2 JSONSerializationを利用したシリアライズとデシリアライズ](./Swift/pages/day3/4-1-2_JSONSerialization.md)  
 
 2. 通信
 
     - 課題 [4.2 HTTPリクエストの基礎](./Swift/pages/day3/4-2_HTTP-request-basic.md)  
-    - 参考 [App Transport Security](http://developer.hatenastaff.com/entry/2016/06/16/165924)  
-    - 参考 [AlamofireとSwiftyJSONでAPIを叩くチュートリアル](http://qiita.com/yutat93/items/1b6dfe34fa8537cf3329)  
+    - 参考 [App Transport Security](http://developer.hatenastaff.com/entry/2016/06/16/165924)
     - プロジェクト [day3/4.2](./Swift/before/day3/4.2)
 
 3. ウェブビュー
 
     - 課題 [4.3 WKWebView](./Swift/pages/day3/4-3_WKWebView.md)  
-    - プロジェクト [day3/homework](./Swift/before/day3/homework)
+    - プロジェクト [day3/4.3](./Swift/before/day3/4.3)
 
 ### 宿題
 
-- 課題 [4.3 WKWebView](./Swift/pages/day3/4-3_WKWebView.md)  
+- 宿題 [Homework 取得したオブジェクトのURLをWebviewで表示する](./Swift/pages/day3/homework.md)  
 - プロジェクト [day3/homework](./Swift/before/day3/homework)
 
 ## 4日目
