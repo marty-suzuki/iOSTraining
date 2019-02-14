@@ -8,21 +8,19 @@
 
 なお、実装の際には以下の点を考慮してください。
 
-- データ URL -> [https://api.github.com/search/repositories?q=language%3Aswift&sort=stars](https://api.github.com/search/repositories?q=language%3Aswift&sort=stars)
-- 動的に cell の高さを計算したり、cellの要素を設定するクラスを作成しましょう
+- データ URL -> [https://qiita.com/api/v2/items?query=Swift](https://qiita.com/api/v2/items?query=Swift)
 - 通信を行っていることをユーザに明示しましょう。
 - 通信が失敗した場合のエラーハンドリングとユーザへのフィードバックを行いましょう。
 
 Cellに表示する要素は
 
-- リポジトリ名 //"name"
-- ユーザーアイコン //"owner" -> "avatar_url"
-- ユーザー名 //"owner" -> "login"
-- リポジトリ説明文 //"description"
-- スター数 //"stargazers_count"
-- フォーク数 //"forks_count"
-- ウォッチ数 //"watchers_count"
+- 投稿タイトル //"title"
+- ユーザーアイコン //"user" -> "profile_image_url"
+- ユーザーID //"user" -> "id"
+- いいね数 //"likes_count"
+- コメント数 //"comments_count"
+- リアクション数 //"reactions_count"
 - 作成日（余裕があれば） //"created_at"
 - 更新日（余裕があれば） //"updated_at"
 
-Alamofire、Kingfisher、SwiftyJSONなどを使っても良いです。
+APKit、Kingfisherなどを使っても良いです。
